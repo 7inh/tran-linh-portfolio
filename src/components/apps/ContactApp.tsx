@@ -48,15 +48,15 @@ export function ContactApp() {
   return (
     <div className="flex h-full flex-col justify-between p-5 pb-6">
       <div>
-        <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-slate-900">
+        <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-slate-900 dark:text-white">
           Let’s connect
         </h2>
-        <p className="mt-2 text-[13.5px] leading-relaxed text-slate-600">
+        <p className="mt-2 text-[13.5px] leading-relaxed text-slate-600 dark:text-zinc-300">
           Open to fullstack roles, AI product work, and thoughtful collaborations.
         </p>
 
-        <div className="mt-5 flex items-center gap-2 text-[13px] text-slate-600">
-          <MapPin className="h-4 w-4 text-teal-600" />
+        <div className="mt-5 flex items-center gap-2 text-[13px] text-slate-600 dark:text-zinc-300">
+          <MapPin className="h-4 w-4 text-teal-600 dark:text-teal-300" />
           {profile.contact.location}
         </div>
 
@@ -66,7 +66,7 @@ export function ContactApp() {
             return (
               <li
                 key={link.label}
-                className="flex items-stretch gap-1.5 rounded-xl border border-slate-200/80 bg-white/70 p-1.5 transition hover:border-teal-300 hover:bg-teal-50/40"
+                className="flex items-stretch gap-1.5 rounded-xl border border-slate-200/80 bg-white/70 p-1.5 transition hover:border-teal-300 hover:bg-teal-50/40 dark:border-white/10 dark:bg-zinc-800/70 dark:hover:border-teal-400/40 dark:hover:bg-teal-950/40"
               >
                 <a
                   href={link.href}
@@ -82,10 +82,10 @@ export function ContactApp() {
                     <link.icon className="h-4 w-4" />
                   </span>
                   <span className="min-w-0">
-                    <span className="block text-[11px] font-medium uppercase tracking-wider text-slate-500">
+                    <span className="block text-[11px] font-medium uppercase tracking-wider text-slate-500 dark:text-zinc-400">
                       {link.label}
                     </span>
-                    <span className="block truncate text-[13px] font-medium text-slate-800">
+                    <span className="block truncate text-[13px] font-medium text-slate-800 dark:text-zinc-100">
                       {link.value}
                     </span>
                   </span>
@@ -94,11 +94,11 @@ export function ContactApp() {
                   type="button"
                   aria-label={`Copy ${link.label}`}
                   title={isCopied ? "Copied" : "Copy"}
-                  className="flex h-auto w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+                  className="flex h-auto w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-800 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
                   onClick={() => copyValue(link.label, link.copyValue)}
                 >
                   {isCopied ? (
-                    <Check className="h-4 w-4 text-teal-600" />
+                    <Check className="h-4 w-4 text-teal-600 dark:text-teal-300" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}
@@ -113,7 +113,7 @@ export function ContactApp() {
         href={`mailto:${profile.contact.email}`}
         className={cn(
           buttonVariants({ size: "lg" }),
-          "mt-6 w-full rounded-xl bg-slate-900 text-white hover:bg-slate-800"
+          "mt-6 w-full rounded-xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-zinc-200"
         )}
       >
         Send an email

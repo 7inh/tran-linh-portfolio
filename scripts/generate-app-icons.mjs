@@ -58,6 +58,34 @@ const ICONS = [
     id: "contact",
     prompt: `${SHARED} Creative modern envelope symbol: pearl #F8FAFC body with soft blush #FDA4AF accent (flap or seal). Background ONLY rose → magenta (#F43F5E → #D946EF). Do NOT use teal, cyan, green, blue, amber, or violet.`,
   },
+  {
+    id: "dino",
+    prompt: `${SHARED} Creative modern cute T-rex / dinosaur silhouette: pearl #F8FAFC body with lime #A3E635 accent (belly or eye spot). Soft drop shadow, rounded forms. Background ONLY lime → forest green (#84CC16 → #166534). Do NOT use teal, cyan, blue, amber, violet, rose, or pink.`,
+  },
+  {
+    id: "minesweeper",
+    prompt: `${SHARED} Creative modern minesweeper mine glyph: pearl #F8FAFC spiked mine ball with red #F87171 accent (center fuse or flag tip). Soft drop shadow, rounded forms. Background ONLY slate → steel gray (#475569 → #1E293B). Do NOT use teal, cyan, lime, amber, violet, rose, or pink.`,
+  },
+  {
+    id: "games",
+    prompt: [
+      "Premium macOS app icon, modern creative minimal, polished soft lighting.",
+      "FULL-BLEED perfect square: gradient background covers every pixel including corners.",
+      "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte.",
+      "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
+      "IGNORE two-tone-only rule for buttons: gamepad BODY must be clean white/pearl #FFFFFF with soft gray shading;",
+      "buttons and sticks MUST be vividly colorful and high saturation (not white, not gray).",
+      "Centered soft-3D gamepad ~55% of canvas: white body,",
+      "face buttons neon hot-pink #FF2D55, neon yellow #FFE566, neon lime #39FF14, neon cyan #00E5FF;",
+      "bright orange D-pad #FF9F1C; sticks neon magenta #FF4D6D and neon turquoise #2EE6D6.",
+      "Background ONLY bright indigo → vivid sky blue (#818CF8 → #38BDF8).",
+      "Soft drop shadow under the gamepad. No text, no letters, no watermark.",
+    ].join(" "),
+  },
+  {
+    id: "trash",
+    prompt: `${SHARED} Creative modern wastebasket / trash can symbol ONLY on a fully TRANSPARENT background (no square plate, no gradient fill behind the can). Pearl #F8FAFC body with soft gray #94A3B8 accent (lid rim or handle). Soft drop shadow under the can only. Isolated object, centered. Do NOT draw any background shape or color field.`,
+  },
 ];
 
 function createClient() {

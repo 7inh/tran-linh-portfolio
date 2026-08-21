@@ -205,12 +205,12 @@ export function Window({ id, children }: WindowProps) {
       aria-label={meta.title}
       aria-hidden={win.minimized}
       className={cn(
-        "absolute flex flex-col overflow-hidden rounded-xl border border-white/50 bg-white/85 shadow-[0_18px_50px_rgba(15,40,70,0.28)] backdrop-blur-2xl",
+        "absolute flex flex-col overflow-hidden rounded-xl border border-white/50 bg-white/85 shadow-[0_18px_50px_rgba(15,40,70,0.28)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/90 dark:shadow-[0_18px_50px_rgba(0,0,0,0.5)]",
         "transition-[opacity,transform] duration-200 ease-out",
         win.minimized
           ? "pointer-events-none scale-[0.2] opacity-0 origin-bottom"
           : "scale-100 opacity-100 animate-window-in",
-        isFocused ? "ring-1 ring-black/5" : "opacity-95",
+        isFocused ? "ring-1 ring-black/5 dark:ring-white/10" : "opacity-95",
         dragging && "transition-none"
       )}
       style={style}
@@ -220,7 +220,7 @@ export function Window({ id, children }: WindowProps) {
     >
       <div
         className={cn(
-          "flex h-11 shrink-0 cursor-default items-center gap-3 border-b border-black/5 px-3 select-none",
+          "flex h-11 shrink-0 cursor-default items-center gap-3 border-b border-black/5 px-3 select-none dark:border-white/10",
           !isMobile && !win.maximized && "cursor-grab active:cursor-grabbing"
         )}
         onPointerDown={onPointerDownTitle}
@@ -241,14 +241,16 @@ export function Window({ id, children }: WindowProps) {
         <div
           className={cn(
             "flex-1 truncate text-center text-[13px] font-medium tracking-tight",
-            isFocused ? "text-slate-800" : "text-slate-500"
+            isFocused
+              ? "text-slate-800 dark:text-white"
+              : "text-slate-500 dark:text-white/50"
           )}
         >
           {meta.title}
         </div>
         <div className="w-[52px]" aria-hidden />
       </div>
-      <div className="min-h-0 flex-1 overflow-hidden">{children}</div>
+      <div className="min-h-0 flex-1 overflow-hidden bg-transparent dark:bg-zinc-950/40">{children}</div>
     </div>
   );
 }

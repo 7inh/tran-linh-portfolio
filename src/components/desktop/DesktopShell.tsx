@@ -3,11 +3,15 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AboutApp } from "@/components/apps/AboutApp";
 import { ContactApp } from "@/components/apps/ContactApp";
+import { DinoGameApp } from "@/components/apps/DinoGameApp";
 import { ExperienceApp } from "@/components/apps/ExperienceApp";
+import { MinesweeperApp } from "@/components/apps/MinesweeperApp";
 import { ProjectsApp } from "@/components/apps/ProjectsApp";
-import { DesktopIcons } from "@/components/desktop/DesktopIcons";
+import { TrashApp } from "@/components/apps/TrashApp";
 import { Dock } from "@/components/desktop/Dock";
 import { MenuBar } from "@/components/desktop/MenuBar";
+import { MediaPlayerProvider } from "@/components/desktop/MediaPlayerContext";
+import { ThemeProvider } from "@/components/desktop/ThemeProvider";
 import { Wallpaper } from "@/components/desktop/Wallpaper";
 import { Window } from "@/components/window/Window";
 import {
@@ -21,6 +25,9 @@ const appContent: Record<AppId, ReactNode> = {
   projects: <ProjectsApp />,
   experience: <ExperienceApp />,
   contact: <ContactApp />,
+  dino: <DinoGameApp />,
+  minesweeper: <MinesweeperApp />,
+  trash: <TrashApp />,
 };
 
 function useIsMobile(breakpoint = 768) {
@@ -82,7 +89,6 @@ function DesktopCanvas() {
     <div className="relative h-dvh w-full overflow-hidden select-none">
       <Wallpaper />
       <MenuBar />
-      <DesktopIcons />
       {(Object.keys(appContent) as AppId[]).map((id) => (
         <Window key={id} id={id}>
           {appContent[id]}
@@ -97,8 +103,12 @@ export function DesktopShell() {
   const isMobile = useIsMobile();
 
   return (
-    <WindowManagerProvider isMobile={isMobile}>
-      <DesktopCanvas />
-    </WindowManagerProvider>
+    <ThemeProvider>
+      <MediaPlayerProvider>
+        <WindowManagerProvider isMobile={isMobile}>
+          <DesktopCanvas />
+        </WindowManagerProvider>
+      </MediaPlayerProvider>
+    </ThemeProvider>
   );
 }

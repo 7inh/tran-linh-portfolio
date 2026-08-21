@@ -1,4 +1,13 @@
-export type AppId = "about" | "projects" | "experience" | "contact";
+export type AppId =
+  | "about"
+  | "projects"
+  | "experience"
+  | "contact"
+  | "dino"
+  | "minesweeper"
+  | "trash";
+
+export const GAME_APP_IDS: AppId[] = ["dino", "minesweeper"];
 
 export const profile = {
   name: "Tran Linh",
@@ -275,5 +284,51 @@ export const apps: {
     title: "Contact",
     label: "Contact",
     defaultSize: { width: 420, height: 420 },
+  },
+  {
+    id: "dino",
+    title: "Dinosaur Game",
+    label: "Dinosaur Game",
+    defaultSize: { width: 720, height: 420 },
+  },
+  {
+    id: "minesweeper",
+    title: "Minesweeper",
+    label: "Minesweeper",
+    defaultSize: { width: 420, height: 500 },
+  },
+  {
+    id: "trash",
+    title: "Trash",
+    label: "Trash",
+    defaultSize: { width: 640, height: 440 },
+  },
+];
+
+export type TrashItem = {
+  name: string;
+  kind: string;
+  dateDeleted: string;
+  size: string;
+  href: string;
+  embedUrl: string;
+};
+
+export const trashItems: TrashItem[] = [
+  {
+    name: "spicy.mov",
+    kind: "Movie",
+    dateDeleted: "Today",
+    size: "4.2 MB",
+    href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+  },
+  {
+    name: "services",
+    kind: "Web Internet Location",
+    dateDeleted: "Today",
+    size: "--",
+    href: "https://app.noirolab.com/",
+    embedUrl: "https://app.noirolab.com/",
   },
 ];
