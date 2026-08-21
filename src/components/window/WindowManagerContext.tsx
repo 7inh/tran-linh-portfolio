@@ -18,6 +18,7 @@ export type WindowState = {
   maximized: boolean;
   zIndex: number;
   position: { x: number; y: number };
+  size: { width: number; height: number };
 };
 
 type WindowManagerContextValue = {
@@ -30,6 +31,11 @@ type WindowManagerContextValue = {
   toggleMaximize: (id: AppId) => void;
   focusApp: (id: AppId) => void;
   moveApp: (id: AppId, position: { x: number; y: number }) => void;
+  resizeApp: (
+    id: AppId,
+    size: { width: number; height: number },
+    position?: { x: number; y: number }
+  ) => void;
   isMobile: boolean;
 };
 
@@ -53,6 +59,7 @@ function createInitialWindows(): Record<AppId, WindowState> {
       maximized: false,
       zIndex: app.id === "about" ? 30 : 10 + index,
       position: defaultPosition(app.id, index),
+      size: { ...app.defaultSize },
     };
   });
   return record;
@@ -123,6 +130,8 @@ export function WindowManagerProvider({
   );
 
   const closeApp = useCallback((id: AppId) => {
+    const index = apps.findIndex((a) => a.id === id);
+    const app = apps[index];
     setWindows((prev) => ({
       ...prev,
       [id]: {
@@ -130,10 +139,8 @@ export function WindowManagerProvider({
         open: false,
         minimized: false,
         maximized: false,
-        position: defaultPosition(
-          id,
-          apps.findIndex((a) => a.id === id)
-        ),
+        position: defaultPosition(id, index),
+        size: { ...app.defaultSize },
       },
     }));
     setFocusedId((current) => (current === id ? null : current));
@@ -173,6 +180,24 @@ export function WindowManagerProvider({
     }));
   }, []);
 
+  const resizeApp = useCallback(
+    (
+      id: AppId,
+      size: { width: number; height: number },
+      position?: { x: number; y: number }
+    ) => {
+      setWindows((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          size,
+          ...(position ? { position } : {}),
+        },
+      }));
+    },
+    []
+  );
+
   const value = useMemo(
     () => ({
       windows,
@@ -184,6 +209,7 @@ export function WindowManagerProvider({
       toggleMaximize,
       focusApp,
       moveApp,
+      resizeApp,
       isMobile,
     }),
     [
@@ -196,6 +222,7 @@ export function WindowManagerProvider({
       toggleMaximize,
       focusApp,
       moveApp,
+      resizeApp,
       isMobile,
     ]
   );

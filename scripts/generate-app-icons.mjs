@@ -83,6 +83,22 @@ const ICONS = [
     ].join(" "),
   },
   {
+    id: "utilities",
+    prompt: [
+      "Premium macOS app icon, modern creative minimal, polished soft lighting.",
+      "FULL-BLEED perfect square: gradient background covers every pixel including corners.",
+      "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte.",
+      "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
+      "IGNORE two-tone-only rule: wrench and accents MUST be vividly colorful and high saturation (not plain white).",
+      "Centered soft-3D crossed tools ~55% of canvas: stylized wrench and screwdriver/gear combo,",
+      "wrench body neon amber #FBBF24 with hot coral #FB7185 handle accents,",
+      "screwdriver/gear neon cyan #22D3EE and vivid violet #A78BFA accents,",
+      "soft layered depth, rounded forms, soft drop shadow under the tools.",
+      "Background ONLY soft grey → steel grey (#94A3B8 → #475569). Do NOT use purple, pink, blue, teal, amber, or green in the background.",
+      "No text, no letters, no watermark. Do NOT use flat monochrome white silhouette.",
+    ].join(" "),
+  },
+  {
     id: "trash",
     prompt: `${SHARED} Creative modern wastebasket / trash can symbol ONLY on a fully TRANSPARENT background (no square plate, no gradient fill behind the can). Pearl #F8FAFC body with soft gray #94A3B8 accent (lid rim or handle). Soft drop shadow under the can only. Isolated object, centered. Do NOT draw any background shape or color field.`,
   },

@@ -138,10 +138,6 @@ export function TrashApp() {
                   aria-selected={isSelected}
                   onClick={() => {
                     setSelected(item.name);
-                    if (item.kind === "Web Internet Location") {
-                      window.open(item.href, "_blank", "noopener,noreferrer");
-                      return;
-                    }
                     setOpened(item);
                   }}
                   className={cn(

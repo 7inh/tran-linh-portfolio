@@ -259,7 +259,7 @@ export function MinesweeperApp() {
           : "🙂";
 
   return (
-    <div className="flex h-full flex-col items-center justify-center bg-[#c0c0c0] p-4 select-none">
+    <div className="relative flex h-full flex-col items-center justify-center bg-[#c0c0c0] p-4 select-none">
       <div className="w-full max-w-[340px] border-2 border-b-white border-r-white border-l-[#808080] border-t-[#808080] bg-[#c0c0c0] p-2 shadow-sm">
         <div className="mb-2 flex items-center justify-between border-2 border-b-[#808080] border-r-[#808080] border-l-white border-t-white bg-[#c0c0c0] px-2 py-1.5">
           <div className="min-w-[3.25rem] bg-black px-1.5 py-0.5 font-mono text-[18px] font-bold leading-none tracking-wider text-[#ff2020]">
@@ -362,6 +362,35 @@ export function MinesweeperApp() {
           )}
         </div>
       </div>
+      {(state.status === "won" || state.status === "lost") && (
+        <div
+          className="absolute inset-0 z-10 flex items-center justify-center bg-black/35 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="minesweeper-result-title"
+        >
+          <div className="w-full max-w-[240px] border-2 border-b-white border-r-white border-l-[#808080] border-t-[#808080] bg-[#c0c0c0] p-3 shadow-lg">
+            <p
+              id="minesweeper-result-title"
+              className="text-center text-[15px] font-bold text-slate-900"
+            >
+              {state.status === "won" ? "You win!" : "You hit a mine"}
+            </p>
+            <p className="mt-1.5 text-center text-[12px] text-slate-700">
+              {state.status === "won"
+                ? `All mines cleared in ${state.seconds}s.`
+                : "Better luck next time."}
+            </p>
+            <button
+              type="button"
+              onClick={() => dispatch({ type: "reset" })}
+              className="mt-3 w-full border-2 border-b-[#808080] border-r-[#808080] border-l-white border-t-white bg-[#c0c0c0] px-3 py-1.5 text-[13px] font-semibold text-slate-900 active:border-b-white active:border-r-white active:border-l-[#808080] active:border-t-[#808080]"
+            >
+              Play again
+            </button>
+          </div>
+        </div>
+      )}
       <p className="mt-3 text-center text-[11px] text-slate-600">
         Click open · Right-click / Ctrl-click / long-press flag
       </p>

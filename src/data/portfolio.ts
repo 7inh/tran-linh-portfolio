@@ -323,28 +323,28 @@ export const trashItems: TrashItem[] = [
     href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
   },
+];
+
+export type UtilityLink = {
+  id: string;
+  label: string;
+  href: string;
+};
+
+export const utilityLinks: UtilityLink[] = [
   {
-    name: "print photo service",
-    kind: "Web Internet Location",
-    dateDeleted: "Today",
-    size: "--",
+    id: "print-photo-service",
+    label: "Print Photo Service",
     href: "https://app.noirolab.com/",
-    embedUrl: "https://app.noirolab.com/",
   },
   {
-    name: "chat mockup",
-    kind: "Web Internet Location",
-    dateDeleted: "Today",
-    size: "--",
+    id: "chat-mockup",
+    label: "Chat Mockup",
     href: "https://chat-mockup-henna.vercel.app/",
-    embedUrl: "https://chat-mockup-henna.vercel.app/",
   },
   {
-    name: "polite message rewriter",
-    kind: "Web Internet Location",
-    dateDeleted: "Today",
-    size: "--",
+    id: "polite-message-rewriter",
+    label: "Polite Message Rewriter",
     href: "https://polite-message-rewriter.vercel.app/",
-    embedUrl: "https://polite-message-rewriter.vercel.app/",
   },
 ];

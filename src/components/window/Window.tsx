@@ -11,6 +11,29 @@ type WindowProps = {
   children: ReactNode;
 };
 
+type ResizeEdge = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
+
+const MIN_WIDTH = 320;
+const MIN_HEIGHT = 240;
+const MENU_BAR = 28;
+const DOCK = 88;
+const SIDE_PAD = 8;
+
+const RESIZE_HANDLES: {
+  edge: ResizeEdge;
+  className: string;
+  cursor: string;
+}[] = [
+  { edge: "n", className: "left-2 right-2 top-0 h-2", cursor: "ns-resize" },
+  { edge: "s", className: "left-2 right-2 bottom-0 h-2", cursor: "ns-resize" },
+  { edge: "e", className: "top-2 bottom-2 right-0 w-2", cursor: "ew-resize" },
+  { edge: "w", className: "top-2 bottom-2 left-0 w-2", cursor: "ew-resize" },
+  { edge: "ne", className: "right-0 top-0 size-3", cursor: "nesw-resize" },
+  { edge: "nw", className: "left-0 top-0 size-3", cursor: "nwse-resize" },
+  { edge: "se", className: "right-0 bottom-0 size-3", cursor: "nwse-resize" },
+  { edge: "sw", className: "left-0 bottom-0 size-3", cursor: "nesw-resize" },
+];
+
 function ExpandIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -20,10 +43,25 @@ function ExpandIcon({ className }: { className?: string }) {
       aria-hidden
     >
       <path d="M0 0h24v24H0z" fill="none" />
-      <path
-        fill="currentColor"
-        d="M19 14V5h-9v2h7v7zM5 10v9h9v-2H7v-7z"
-      />
+      <g transform="rotate(45 12 12)">
+        <path fill="currentColor" d="m10 6l-6 6l6 6zm4 12l6-6l-6-6z" />
+      </g>
+    </svg>
+  );
+}
+
+function CollapseIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      className={className}
+      aria-hidden
+    >
+      <path d="M0 0h24v24H0z" fill="none" />
+      <g transform="rotate(45 12 12)">
+        <path fill="currentColor" d="m4 6l6 6l-6 6zm16 12l-6-6l6-6z" />
+      </g>
     </svg>
   );
 }
@@ -48,7 +86,7 @@ function TrafficLights({
   return (
     <div
       data-traffic
-      className="group/traffic flex items-center gap-1.5"
+      className="group/traffic flex items-center gap-2"
       onPointerDown={stop}
       onMouseDown={stop}
       onClick={stop}
@@ -57,7 +95,7 @@ function TrafficLights({
       <button
         type="button"
         aria-label="Close"
-        className="flex h-3 w-3 items-center justify-center rounded-full bg-[#ff5f57] text-black/70 shadow-sm transition hover:brightness-95"
+        className="flex size-3.5 items-center justify-center rounded-full bg-[#ff5f57] text-black/70 shadow-sm transition hover:brightness-95"
         onPointerDown={stop}
         onMouseDown={stop}
         onClick={(e) => {
@@ -66,14 +104,14 @@ function TrafficLights({
         }}
       >
         <X
-          className="h-2 w-2 opacity-0 transition-opacity group-hover/traffic:opacity-100"
+          className="size-3 opacity-0 transition-opacity group-hover/traffic:opacity-100"
           strokeWidth={3}
         />
       </button>
       <button
         type="button"
         aria-label="Minimize"
-        className="flex h-3 w-3 items-center justify-center rounded-full bg-[#febc2e] text-black/70 shadow-sm transition hover:brightness-95 disabled:opacity-40"
+        className="flex size-3.5 items-center justify-center rounded-full bg-[#febc2e] text-black/70 shadow-sm transition hover:brightness-95 disabled:opacity-40"
         disabled={isMobile}
         onPointerDown={stop}
         onMouseDown={stop}
@@ -83,14 +121,14 @@ function TrafficLights({
         }}
       >
         <Minus
-          className="h-2 w-2 opacity-0 transition-opacity group-hover/traffic:opacity-100"
+          className="size-3 opacity-0 transition-opacity group-hover/traffic:opacity-100"
           strokeWidth={3}
         />
       </button>
       <button
         type="button"
         aria-label={maximized ? "Restore" : "Zoom"}
-        className="flex h-3 w-3 items-center justify-center rounded-full bg-[#28c840] text-black/70 shadow-sm transition hover:brightness-95 disabled:opacity-40"
+        className="flex size-3.5 items-center justify-center rounded-full bg-[#28c840] text-black/70 shadow-sm transition hover:brightness-95 disabled:opacity-40"
         disabled={isMobile}
         onPointerDown={stop}
         onMouseDown={stop}
@@ -99,12 +137,11 @@ function TrafficLights({
           onZoom();
         }}
       >
-        <ExpandIcon
-          className={cn(
-            "h-2 w-2 opacity-0 transition-opacity group-hover/traffic:opacity-100",
-            maximized && "rotate-180"
-          )}
-        />
+        {maximized ? (
+          <CollapseIcon className="size-3 opacity-0 transition-opacity group-hover/traffic:opacity-100" />
+        ) : (
+          <ExpandIcon className="size-3 opacity-0 transition-opacity group-hover/traffic:opacity-100" />
+        )}
       </button>
     </div>
   );
@@ -119,6 +156,7 @@ export function Window({ id, children }: WindowProps) {
     toggleMaximize,
     focusApp,
     moveApp,
+    resizeApp,
     isMobile,
   } = useWindowManager();
 
@@ -131,7 +169,17 @@ export function Window({ id, children }: WindowProps) {
     origX: number;
     origY: number;
   } | null>(null);
+  const resizeRef = useRef<{
+    edge: ResizeEdge;
+    startX: number;
+    startY: number;
+    origX: number;
+    origY: number;
+    origW: number;
+    origH: number;
+  } | null>(null);
   const [dragging, setDragging] = useState(false);
+  const [resizing, setResizing] = useState(false);
 
   const onPointerDownTitle = useCallback(
     (e: React.PointerEvent) => {
@@ -155,12 +203,10 @@ export function Window({ id, children }: WindowProps) {
       if (!dragRef.current) return;
       const dx = e.clientX - dragRef.current.startX;
       const dy = e.clientY - dragRef.current.startY;
-      const menuBar = 28;
-      const dock = 88;
       const maxX = Math.max(0, window.innerWidth - 120);
-      const maxY = Math.max(menuBar, window.innerHeight - dock - 40);
+      const maxY = Math.max(MENU_BAR, window.innerHeight - DOCK - 40);
       const x = Math.min(maxX, Math.max(0, dragRef.current.origX + dx));
-      const y = Math.min(maxY, Math.max(menuBar, dragRef.current.origY + dy));
+      const y = Math.min(maxY, Math.max(MENU_BAR, dragRef.current.origY + dy));
       moveApp(id, { x, y });
     },
     [id, moveApp]
@@ -169,6 +215,91 @@ export function Window({ id, children }: WindowProps) {
   const onPointerUp = useCallback((e: React.PointerEvent) => {
     dragRef.current = null;
     setDragging(false);
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const onResizePointerDown = useCallback(
+    (edge: ResizeEdge) => (e: React.PointerEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
+      focusApp(id);
+      resizeRef.current = {
+        edge,
+        startX: e.clientX,
+        startY: e.clientY,
+        origX: win.position.x,
+        origY: win.position.y,
+        origW: win.size.width,
+        origH: win.size.height,
+      };
+      setResizing(true);
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    },
+    [focusApp, id, win.position.x, win.position.y, win.size.height, win.size.width]
+  );
+
+  const onResizePointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      const active = resizeRef.current;
+      if (!active) return;
+
+      const dx = e.clientX - active.startX;
+      const dy = e.clientY - active.startY;
+      const { edge, origX, origY, origW, origH } = active;
+
+      const maxW = Math.max(MIN_WIDTH, window.innerWidth - SIDE_PAD * 2);
+      const maxH = Math.max(
+        MIN_HEIGHT,
+        window.innerHeight - MENU_BAR - DOCK - SIDE_PAD
+      );
+
+      let x = origX;
+      let y = origY;
+      let w = origW;
+      let h = origH;
+
+      if (edge.includes("e")) {
+        w = Math.min(maxW, Math.max(MIN_WIDTH, origW + dx));
+        w = Math.min(w, window.innerWidth - SIDE_PAD - origX);
+      }
+      if (edge.includes("s")) {
+        h = Math.min(maxH, Math.max(MIN_HEIGHT, origH + dy));
+        h = Math.min(h, window.innerHeight - DOCK - SIDE_PAD - origY);
+      }
+      if (edge.includes("w")) {
+        const nextW = Math.min(maxW, Math.max(MIN_WIDTH, origW - dx));
+        const right = origX + origW;
+        x = Math.min(right - MIN_WIDTH, Math.max(SIDE_PAD, right - nextW));
+        w = right - x;
+      }
+      if (edge.includes("n")) {
+        const nextH = Math.min(maxH, Math.max(MIN_HEIGHT, origH - dy));
+        const bottom = origY + origH;
+        y = Math.min(
+          bottom - MIN_HEIGHT,
+          Math.max(MENU_BAR, bottom - nextH)
+        );
+        h = bottom - y;
+      }
+
+      const needsPosition =
+        edge.includes("w") || edge.includes("n");
+      resizeApp(
+        id,
+        { width: Math.round(w), height: Math.round(h) },
+        needsPosition ? { x: Math.round(x), y: Math.round(y) } : undefined
+      );
+    },
+    [id, resizeApp]
+  );
+
+  const onResizePointerUp = useCallback((e: React.PointerEvent) => {
+    resizeRef.current = null;
+    setResizing(false);
     try {
       (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     } catch {
@@ -192,12 +323,15 @@ export function Window({ id, children }: WindowProps) {
       : {
           top: win.position.y,
           left: win.position.x,
-          width: meta.defaultSize.width,
-          height: meta.defaultSize.height,
+          width: win.size.width,
+          height: win.size.height,
           maxWidth: "calc(100vw - 24px)",
           maxHeight: "calc(100dvh - 120px)",
           zIndex: win.zIndex,
         };
+
+  const showResize =
+    !isMobile && !win.maximized && !win.minimized;
 
   return (
     <div
@@ -215,7 +349,7 @@ export function Window({ id, children }: WindowProps) {
                 ? "ring-1 ring-black/5 dark:ring-white/10"
                 : "opacity-95"
             ),
-        dragging && "transition-none"
+        (dragging || resizing) && "transition-none"
       )}
       style={style}
       onMouseDown={() => {
@@ -252,9 +386,32 @@ export function Window({ id, children }: WindowProps) {
         >
           {meta.title}
         </div>
-        <div className="w-[52px]" aria-hidden />
+        <div className="w-[58px]" aria-hidden />
       </div>
-      <div className="min-h-0 flex-1 overflow-hidden bg-transparent dark:bg-zinc-950/40">{children}</div>
+      <div className="min-h-0 flex-1 overflow-hidden bg-transparent dark:bg-zinc-950/40">
+        {children}
+      </div>
+
+      {showResize &&
+        RESIZE_HANDLES.map(({ edge, className, cursor }) => (
+          <div
+            key={edge}
+            role="separator"
+            aria-orientation={
+              edge === "n" || edge === "s"
+                ? "horizontal"
+                : edge === "e" || edge === "w"
+                  ? "vertical"
+                  : undefined
+            }
+            aria-label={`Resize ${edge}`}
+            className={cn("absolute z-20", className)}
+            style={{ cursor }}
+            onPointerDown={onResizePointerDown(edge)}
+            onPointerMove={onResizePointerMove}
+            onPointerUp={onResizePointerUp}
+          />
+        ))}
     </div>
   );
 }
