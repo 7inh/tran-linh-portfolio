@@ -209,8 +209,12 @@ export function Window({ id, children }: WindowProps) {
         "transition-[opacity,transform] duration-200 ease-out",
         win.minimized
           ? "pointer-events-none scale-[0.2] opacity-0 origin-bottom"
-          : "scale-100 opacity-100 animate-window-in",
-        isFocused ? "ring-1 ring-black/5 dark:ring-white/10" : "opacity-95",
+          : cn(
+              "scale-100 opacity-100 animate-window-in",
+              isFocused
+                ? "ring-1 ring-black/5 dark:ring-white/10"
+                : "opacity-95"
+            ),
         dragging && "transition-none"
       )}
       style={style}

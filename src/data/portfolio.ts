@@ -324,11 +324,27 @@ export const trashItems: TrashItem[] = [
     embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
   },
   {
-    name: "services",
+    name: "print photo service",
     kind: "Web Internet Location",
     dateDeleted: "Today",
     size: "--",
     href: "https://app.noirolab.com/",
     embedUrl: "https://app.noirolab.com/",
+  },
+  {
+    name: "chat mockup",
+    kind: "Web Internet Location",
+    dateDeleted: "Today",
+    size: "--",
+    href: "https://chat-mockup-henna.vercel.app/",
+    embedUrl: "https://chat-mockup-henna.vercel.app/",
+  },
+  {
+    name: "polite message rewriter",
+    kind: "Web Internet Location",
+    dateDeleted: "Today",
+    size: "--",
+    href: "https://polite-message-rewriter.vercel.app/",
+    embedUrl: "https://polite-message-rewriter.vercel.app/",
   },
 ];
