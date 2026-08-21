@@ -22,9 +22,11 @@ function formatTime(sec: number) {
 export function ControlCenter({
   open,
   onClose,
+  className,
 }: {
   open: boolean;
   onClose: () => void;
+  className?: string;
 }) {
   const { dark, toggleDark } = useTheme();
   const {
@@ -64,16 +66,19 @@ export function ControlCenter({
       ref={panelRef}
       role="dialog"
       aria-label="Control Center"
-      className="absolute right-2 top-9 z-[120] w-[320px] rounded-2xl border border-white/40 bg-white/55 p-3 shadow-[0_12px_40px_rgba(15,40,70,0.28)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/70"
+      className={cn(
+        "absolute right-2 top-9 z-[120] w-[min(320px,calc(100vw-1rem))] rounded-2xl border border-white/50 bg-white/90 p-3 text-slate-900 shadow-[0_12px_40px_rgba(15,40,70,0.28)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/90 dark:text-white",
+        className
+      )}
     >
       <button
         type="button"
         onClick={toggleDark}
         className={cn(
           "flex w-full items-center gap-3 rounded-2xl border border-white/40 px-3 py-3 text-left transition",
-          dark
+            dark
             ? "bg-zinc-800/90 text-white dark:border-white/10"
-            : "bg-white/70 text-slate-900"
+            : "border-slate-200/70 bg-white text-slate-900"
         )}
         aria-pressed={dark}
       >
@@ -91,7 +96,7 @@ export function ControlCenter({
         </span>
       </button>
 
-      <div className="mt-2 rounded-2xl border border-white/40 bg-white/70 p-3 dark:border-white/10 dark:bg-zinc-800/80 dark:text-white">
+      <div className="mt-2 rounded-2xl border border-slate-200/70 bg-white p-3 text-slate-900 dark:border-white/10 dark:bg-zinc-800/80 dark:text-white">
         <div className="flex items-center gap-3">
           <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-400 to-sky-400 text-[11px] font-semibold text-white shadow-sm">
             ♪

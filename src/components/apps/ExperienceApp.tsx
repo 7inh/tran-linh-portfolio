@@ -8,12 +8,12 @@ import { experience } from "@/data/portfolio";
 export function ExperienceApp() {
   return (
     <ScrollArea className="h-full">
-      <div className="space-y-1 p-5 pb-8">
+      <div className="space-y-1 p-4 pb-10 sm:p-5 sm:pb-8">
         {experience.map((job, index) => (
           <div key={`${job.company}-${job.period}`}>
             <article className="py-3">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-[family-name:var(--font-display)] text-[15px] font-semibold text-slate-900 dark:text-white">
+                <h3 className="min-w-0 break-words font-[family-name:var(--font-display)] text-[15px] font-semibold text-slate-900 dark:text-white">
                   {job.company}
                 </h3>
                 <span className="text-[11px] tabular-nums text-slate-500 dark:text-zinc-400">

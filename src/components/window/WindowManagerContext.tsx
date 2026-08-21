@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -76,6 +77,30 @@ export function WindowManagerProvider({
   const [focusedId, setFocusedId] = useState<AppId | null>("about");
   const [bouncingId, setBouncingId] = useState<AppId | null>(null);
   const topZRef = useRef(30);
+  const didResetMobileHome = useRef(false);
+
+  // Mobile OS starts on the home screen (no pre-opened About window).
+  useEffect(() => {
+    if (!isMobile) {
+      didResetMobileHome.current = false;
+      return;
+    }
+    if (didResetMobileHome.current) return;
+    didResetMobileHome.current = true;
+    setWindows((prev) => {
+      const next = { ...prev };
+      (Object.keys(next) as AppId[]).forEach((key) => {
+        next[key] = {
+          ...next[key],
+          open: false,
+          minimized: false,
+          maximized: true,
+        };
+      });
+      return next;
+    });
+    setFocusedId(null);
+  }, [isMobile]);
 
   const focusApp = useCallback((id: AppId) => {
     topZRef.current += 1;

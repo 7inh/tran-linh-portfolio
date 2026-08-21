@@ -20,8 +20,8 @@ export function AboutApp() {
 
   return (
     <ScrollArea className="h-full">
-      <div className="space-y-5 p-5 pb-8">
-        <div className="flex items-start gap-4">
+      <div className="space-y-5 p-4 pb-10 sm:p-5 sm:pb-8">
+        <div className="flex flex-col items-start gap-4 sm:flex-row">
           <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-200/80 dark:ring-white/15">
             <Image
               src="/brand/avatar-icon.png"
@@ -33,8 +33,8 @@ export function AboutApp() {
               unoptimized
             />
           </div>
-          <div>
-            <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
+          <div className="min-w-0">
+            <h1 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl dark:text-white">
               {profile.name}
             </h1>
             <p className="text-sm font-medium text-teal-700 dark:text-teal-300">

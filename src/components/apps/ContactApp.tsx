@@ -46,8 +46,8 @@ export function ContactApp() {
   };
 
   return (
-    <div className="flex h-full flex-col justify-between p-5 pb-6">
-      <div>
+    <div className="flex h-full flex-col justify-between p-4 pb-10 sm:p-5 sm:pb-6">
+      <div className="min-w-0">
         <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-slate-900 dark:text-white">
           Let’s connect
         </h2>
@@ -56,8 +56,8 @@ export function ContactApp() {
         </p>
 
         <div className="mt-5 flex items-center gap-2 text-[13px] text-slate-600 dark:text-zinc-300">
-          <MapPin className="h-4 w-4 text-teal-600 dark:text-teal-300" />
-          {profile.contact.location}
+          <MapPin className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-300" />
+          <span className="min-w-0">{profile.contact.location}</span>
         </div>
 
         <ul className="mt-5 space-y-2">
@@ -66,7 +66,7 @@ export function ContactApp() {
             return (
               <li
                 key={link.label}
-                className="flex items-stretch gap-1.5 rounded-xl border border-slate-200/80 bg-white/70 p-1.5 transition hover:border-teal-300 hover:bg-teal-50/40 dark:border-white/10 dark:bg-zinc-800/70 dark:hover:border-teal-400/40 dark:hover:bg-teal-950/40"
+                className="flex min-w-0 items-stretch gap-1.5 rounded-xl border border-slate-200/80 bg-white/70 p-1.5 transition hover:border-teal-300 hover:bg-teal-50/40 dark:border-white/10 dark:bg-zinc-800/70 dark:hover:border-teal-400/40 dark:hover:bg-teal-950/40"
               >
                 <a
                   href={link.href}

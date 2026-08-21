@@ -13,6 +13,7 @@ import { MenuBar } from "@/components/desktop/MenuBar";
 import { MediaPlayerProvider } from "@/components/desktop/MediaPlayerContext";
 import { ThemeProvider } from "@/components/desktop/ThemeProvider";
 import { Wallpaper } from "@/components/desktop/Wallpaper";
+import { MobileShell } from "@/components/mobile/MobileShell";
 import { Window } from "@/components/window/Window";
 import {
   WindowManagerProvider,
@@ -31,17 +32,20 @@ const appContent: Record<AppId, ReactNode> = {
 };
 
 function useIsMobile(breakpoint = 768) {
+  // Always start false so SSR and the first client paint match (avoids hydration mismatch).
   const [isMobile, setIsMobile] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
     const update = () => setIsMobile(mq.matches);
     update();
+    setReady(true);
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, [breakpoint]);
 
-  return isMobile;
+  return { isMobile, ready };
 }
 
 function isEditableTarget(target: EventTarget | null) {
@@ -67,7 +71,6 @@ function DesktopCanvas() {
       if (!(e.ctrlKey || e.metaKey) || !isW || e.altKey || e.shiftKey) return;
       if (isEditableTarget(e.target)) return;
 
-      // Consume immediately in capture phase so the browser does not close the tab.
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
@@ -100,13 +103,21 @@ function DesktopCanvas() {
 }
 
 export function DesktopShell() {
-  const isMobile = useIsMobile();
+  const { isMobile, ready } = useIsMobile();
 
   return (
     <ThemeProvider>
       <MediaPlayerProvider>
         <WindowManagerProvider isMobile={isMobile}>
-          <DesktopCanvas />
+          {!ready ? (
+            <div className="relative h-dvh w-full overflow-hidden">
+              <Wallpaper />
+            </div>
+          ) : isMobile ? (
+            <MobileShell />
+          ) : (
+            <DesktopCanvas />
+          )}
         </WindowManagerProvider>
       </MediaPlayerProvider>
     </ThemeProvider>

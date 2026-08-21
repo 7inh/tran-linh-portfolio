@@ -25,7 +25,9 @@ function ItemIcon({
 }
 
 export function TrashApp() {
-  const [selected, setSelected] = useState<string | null>(trashItems[0]?.name ?? null);
+  const [selected, setSelected] = useState<string | null>(
+    trashItems[0]?.name ?? null
+  );
   const [opened, setOpened] = useState<TrashItem | null>(null);
   const isVideo = opened?.kind === "Movie";
 
@@ -33,7 +35,7 @@ export function TrashApp() {
     return (
       <div
         className={cn(
-          "flex h-full min-h-0 flex-col",
+          "flex h-full min-h-0 flex-col pb-8",
           isVideo
             ? "bg-black text-white"
             : "bg-[#f5f5f7] text-slate-800 dark:bg-zinc-900 dark:text-zinc-100"
@@ -62,7 +64,7 @@ export function TrashApp() {
           </button>
           <span
             className={cn(
-              "truncate text-[12px] font-medium",
+              "min-w-0 truncate text-[12px] font-medium",
               isVideo
                 ? "text-white/80"
                 : "text-slate-600 dark:text-zinc-300"
@@ -91,7 +93,7 @@ export function TrashApp() {
 
   return (
     <div className="flex h-full min-h-0 bg-[#f5f5f7] text-slate-800 dark:bg-zinc-900 dark:text-zinc-100">
-      <aside className="flex w-40 shrink-0 flex-col border-r border-slate-200/90 bg-[#ececef] px-2 py-3 dark:border-white/10 dark:bg-zinc-800/90">
+      <aside className="hidden w-40 shrink-0 flex-col border-r border-slate-200/90 bg-[#ececef] px-2 py-3 md:flex dark:border-white/10 dark:bg-zinc-800/90">
         <p className="mb-1.5 px-2 text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
           Favorites
         </p>
@@ -107,7 +109,7 @@ export function TrashApp() {
         </div>
       </aside>
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col pb-8 md:pb-0">
         <div className="flex items-center gap-2 border-b border-slate-200/90 bg-white/70 px-3 py-2 dark:border-white/10 dark:bg-zinc-800/70">
           <span className="text-[12px] font-medium text-slate-600 dark:text-zinc-300">
             Trash
@@ -118,7 +120,7 @@ export function TrashApp() {
         </div>
 
         <div
-          className="grid grid-cols-[minmax(0,1.4fr)_0.7fr_0.5fr_0.6fr] gap-2 border-b border-slate-200/80 bg-white/50 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:border-white/10 dark:bg-zinc-800/40 dark:text-zinc-400"
+          className="hidden grid-cols-[minmax(0,1.4fr)_0.7fr_0.5fr_0.6fr] gap-2 border-b border-slate-200/80 bg-white/50 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-slate-500 md:grid dark:border-white/10 dark:bg-zinc-800/40 dark:text-zinc-400"
           role="row"
         >
           <span>Name</span>
@@ -127,7 +129,11 @@ export function TrashApp() {
           <span>Kind</span>
         </div>
 
-        <ul className="flex-1 overflow-auto p-1" role="listbox" aria-label="Trash contents">
+        <ul
+          className="flex-1 overflow-auto p-1"
+          role="listbox"
+          aria-label="Trash contents"
+        >
           {trashItems.map((item) => {
             const isSelected = selected === item.name;
             return (
@@ -141,7 +147,7 @@ export function TrashApp() {
                     setOpened(item);
                   }}
                   className={cn(
-                    "grid w-full cursor-pointer grid-cols-[minmax(0,1.4fr)_0.7fr_0.5fr_0.6fr] gap-2 rounded-md px-2 py-1.5 text-left text-[12px] outline-none transition",
+                    "flex w-full cursor-pointer flex-col gap-0.5 rounded-md px-2 py-2 text-left text-[12px] outline-none transition md:grid md:grid-cols-[minmax(0,1.4fr)_0.7fr_0.5fr_0.6fr] md:gap-2 md:py-1.5",
                     isSelected
                       ? "bg-[#007aff] text-white"
                       : "text-slate-800 hover:bg-slate-200/70 dark:text-zinc-100 dark:hover:bg-white/10"
@@ -149,11 +155,21 @@ export function TrashApp() {
                 >
                   <span className="flex min-w-0 items-center gap-2 font-medium">
                     <ItemIcon item={item} selected={isSelected} />
-                    <span className="truncate">{item.name}</span>
+                    <span className="min-w-0 truncate">{item.name}</span>
                   </span>
                   <span
                     className={cn(
-                      "tabular-nums",
+                      "pl-[1.375rem] text-[11px] md:hidden",
+                      isSelected
+                        ? "text-white/80"
+                        : "text-slate-500 dark:text-zinc-400"
+                    )}
+                  >
+                    {item.kind}
+                  </span>
+                  <span
+                    className={cn(
+                      "hidden tabular-nums md:block",
                       isSelected
                         ? "text-white/85"
                         : "text-slate-600 dark:text-zinc-400"
@@ -163,7 +179,7 @@ export function TrashApp() {
                   </span>
                   <span
                     className={cn(
-                      "tabular-nums",
+                      "hidden tabular-nums md:block",
                       isSelected
                         ? "text-white/85"
                         : "text-slate-600 dark:text-zinc-400"
@@ -173,7 +189,7 @@ export function TrashApp() {
                   </span>
                   <span
                     className={cn(
-                      "truncate",
+                      "hidden truncate md:block",
                       isSelected
                         ? "text-white/85"
                         : "text-slate-600 dark:text-zinc-400"

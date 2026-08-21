@@ -311,15 +311,26 @@ export function Window({ id, children }: WindowProps) {
 
   const style: React.CSSProperties =
     win.maximized || isMobile
-      ? {
-          top: isMobile ? 28 : 36,
-          left: isMobile ? 8 : 16,
-          right: isMobile ? 8 : 16,
-          bottom: isMobile ? 96 : 100,
-          width: "auto",
-          height: "auto",
-          zIndex: win.zIndex,
-        }
+      ? isMobile
+        ? {
+            top: 44,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: "auto",
+            height: "auto",
+            zIndex: win.zIndex,
+            borderRadius: 0,
+          }
+        : {
+            top: 36,
+            left: 16,
+            right: 16,
+            bottom: 100,
+            width: "auto",
+            height: "auto",
+            zIndex: win.zIndex,
+          }
       : {
           top: win.position.y,
           left: win.position.x,
@@ -339,7 +350,8 @@ export function Window({ id, children }: WindowProps) {
       aria-label={meta.title}
       aria-hidden={win.minimized}
       className={cn(
-        "absolute flex flex-col overflow-hidden rounded-xl border border-white/50 bg-white/85 shadow-[0_18px_50px_rgba(15,40,70,0.28)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/90 dark:shadow-[0_18px_50px_rgba(0,0,0,0.5)]",
+        "absolute flex flex-col overflow-hidden border border-white/50 bg-white/85 shadow-[0_18px_50px_rgba(15,40,70,0.28)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/90 dark:shadow-[0_18px_50px_rgba(0,0,0,0.5)]",
+        isMobile ? "rounded-none border-x-0 border-t-0" : "rounded-xl",
         "transition-[opacity,transform] duration-200 ease-out",
         win.minimized
           ? "pointer-events-none scale-[0.2] opacity-0 origin-bottom"
@@ -365,17 +377,29 @@ export function Window({ id, children }: WindowProps) {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onDoubleClick={(e) => {
+          if (isMobile) return;
           if ((e.target as HTMLElement).closest("[data-traffic]")) return;
           toggleMaximize(id);
         }}
       >
-        <TrafficLights
-          maximized={win.maximized}
-          isMobile={isMobile}
-          onClose={() => closeApp(id)}
-          onMinimize={() => minimizeApp(id)}
-          onZoom={() => toggleMaximize(id)}
-        />
+        {isMobile ? (
+          <button
+            type="button"
+            aria-label="Close"
+            className="flex h-7 items-center rounded-full bg-black/5 px-2.5 text-[12px] font-medium text-slate-700 dark:bg-white/10 dark:text-white/90"
+            onClick={() => closeApp(id)}
+          >
+            Done
+          </button>
+        ) : (
+          <TrafficLights
+            maximized={win.maximized}
+            isMobile={isMobile}
+            onClose={() => closeApp(id)}
+            onMinimize={() => minimizeApp(id)}
+            onZoom={() => toggleMaximize(id)}
+          />
+        )}
         <div
           className={cn(
             "flex-1 truncate text-center text-[13px] font-medium tracking-tight",
@@ -386,9 +410,14 @@ export function Window({ id, children }: WindowProps) {
         >
           {meta.title}
         </div>
-        <div className="w-[58px]" aria-hidden />
+        <div className={cn(isMobile ? "w-[52px]" : "w-[58px]")} aria-hidden />
       </div>
-      <div className="min-h-0 flex-1 overflow-hidden bg-transparent dark:bg-zinc-950/40">
+      <div
+        className={cn(
+          "min-h-0 flex-1 overflow-hidden bg-transparent dark:bg-zinc-950/40",
+          isMobile && "pb-8"
+        )}
+      >
         {children}
       </div>
 
