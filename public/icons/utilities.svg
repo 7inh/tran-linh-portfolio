@@ -1,28 +1,31 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <!-- White background -->
-  <rect width="256" height="256" fill="#FFFFFF"/>
-
-  <!-- Crossed tools (wrench and screwdriver) in gray -->
-  <g transform="translate(128, 128)">
-    <!-- Wrench (left side) -->
-    <g fill="none" stroke="#94A3B8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-      <!-- Wrench handle -->
-      <path d="M -50 -30 L 0 -30 Q 20 -30 20 -10 L 20 10"/>
-      <!-- Wrench head (circular) -->
-      <circle cx="20" cy="0" r="18"/>
-      <circle cx="20" cy="0" r="12"/>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A8B4C4"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </linearGradient>
+    <radialGradient id="hole" cx="35%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#8894A5"/>
+      <stop offset="100%" stop-color="#5B6B80"/>
+    </radialGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1E293B" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="256" height="256" fill="url(#bg)"/>
+  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.14"/>
+  <g filter="url(#shadow)">
+    <g fill="#ffffff">
+      <circle cx="128" cy="128" r="70"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(0 128 128)"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(45 128 128)"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(90 128 128)"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(135 128 128)"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(180 128 128)"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(225 128 128)"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(270 128 128)"/>
+      <rect x="113" y="36" width="30" height="36" rx="6" transform="rotate(315 128 128)"/>
     </g>
-
-    <!-- Screwdriver (right side, rotated) -->
-    <g fill="none" stroke="#94A3B8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90)">
-      <!-- Screwdriver handle -->
-      <path d="M -50 -30 L 0 -30 L 15 -15 L 15 15 L 0 30 L -50 30"/>
-      <!-- Screwdriver tip (cross) -->
-      <line x1="15" y1="-8" x2="15" y2="8"/>
-      <line x1="8" y1="0" x2="22" y2="0"/>
-    </g>
+    <circle cx="128" cy="128" r="32" fill="url(#hole)"/>
   </g>
-
-  <!-- Drop shadow -->
-  <ellipse cx="128" cy="220" rx="75" ry="12" fill="#000000" opacity="0.08"/>
 </svg>

@@ -99,12 +99,12 @@ export function DockFolder({
         <div
           ref={menuRef}
           className={cn(
-            "absolute bottom-[calc(100%+14px)] left-1/2 z-40 -translate-x-1/2 rounded-lg p-3",
+            "absolute bottom-[calc(100%+14px)] left-1/2 z-40 -translate-x-1/2 animate-window-in rounded-[22px] p-3",
             dockGlassPanel
           )}
           role="menu"
         >
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-1">
             {apps.map((app) => (
               <button
                 key={app.id}
@@ -112,7 +112,7 @@ export function DockFolder({
                   setIsOpen(false);
                   openApp(app.id as AppId);
                 }}
-                className="flex flex-col items-center gap-1 rounded-lg p-2 outline-none transition hover:opacity-80"
+                className="flex flex-col items-center gap-1.5 rounded-xl p-2.5 outline-none transition-colors hover:bg-white/40 dark:hover:bg-white/10"
                 role="menuitem"
               >
                 <AppGlyph id={app.id as AppId} size="sm" />

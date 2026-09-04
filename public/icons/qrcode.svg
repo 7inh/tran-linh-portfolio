@@ -1,50 +1,31 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <!-- Dark gradient background -->
   <defs>
-    <linearGradient id="qrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#334155;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0F172A;stop-opacity:1" />
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3F4C61"/>
+      <stop offset="100%" stop-color="#161D2B"/>
     </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
   </defs>
-  <rect width="256" height="256" fill="url(#qrGrad)"/>
-
-  <!-- QR code pattern -->
-  <g fill="#F8FAFC">
-    <!-- Corner square 1 (top-left) -->
-    <rect x="30" y="30" width="50" height="50" fill="none" stroke="#F8FAFC" stroke-width="8"/>
-    <rect x="38" y="38" width="34" height="34" fill="#F8FAFC"/>
-
-    <!-- Corner square 2 (top-right) -->
-    <rect x="176" y="30" width="50" height="50" fill="none" stroke="#F8FAFC" stroke-width="8"/>
-    <rect x="184" y="38" width="34" height="34" fill="#F8FAFC"/>
-
-    <!-- Corner square 3 (bottom-left) -->
-    <rect x="30" y="176" width="50" height="50" fill="none" stroke="#F8FAFC" stroke-width="8"/>
-    <rect x="38" y="184" width="34" height="34" fill="#F8FAFC"/>
-
-    <!-- QR data pattern (random blocks) -->
-    <rect x="100" y="60" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="112" y="60" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="124" y="60" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="136" y="60" width="8" height="8" fill="#F8FAFC"/>
-
-    <rect x="100" y="76" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="124" y="76" width="8" height="8" fill="#F8FAFC"/>
-
-    <rect x="112" y="92" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="124" y="92" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="136" y="92" width="8" height="8" fill="#F8FAFC"/>
-
-    <!-- More scattered pattern -->
-    <rect x="100" y="120" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="112" y="130" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="124" y="140" width="8" height="8" fill="#F8FAFC"/>
-    <rect x="136" y="150" width="8" height="8" fill="#F8FAFC"/>
-
-    <!-- Cyan accent square -->
-    <rect x="150" y="150" width="12" height="12" fill="#22D3EE" opacity="0.8"/>
+  <rect width="256" height="256" fill="url(#bg)"/>
+  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.08"/>
+  <g filter="url(#shadow)" fill="#ffffff">
+    <rect x="52" y="52" width="152" height="152" rx="10" fill="none"/>
+    <rect x="52" y="52" width="52" height="52" rx="6"/>
+    <rect x="66" y="66" width="24" height="24" rx="3" fill="#161D2B"/>
+    <rect x="152" y="52" width="52" height="52" rx="6"/>
+    <rect x="166" y="66" width="24" height="24" rx="3" fill="#161D2B"/>
+    <rect x="52" y="152" width="52" height="52" rx="6"/>
+    <rect x="66" y="166" width="24" height="24" rx="3" fill="#161D2B"/>
+    <rect x="118" y="52" width="14" height="14" rx="2"/>
+    <rect x="118" y="80" width="14" height="14" rx="2"/>
+    <rect x="152" y="118" width="14" height="14" rx="2"/>
+    <rect x="118" y="118" width="14" height="14" rx="2"/>
+    <rect x="118" y="152" width="14" height="14" rx="2"/>
+    <rect x="118" y="176" width="14" height="14" rx="2"/>
+    <rect x="152" y="176" width="14" height="14" rx="2"/>
+    <rect x="176" y="152" width="28" height="14" rx="2"/>
+    <rect x="176" y="188" width="28" height="14" rx="2"/>
   </g>
-
-  <!-- Subtle drop shadow -->
-  <ellipse cx="128" cy="235" rx="70" ry="10" fill="#000000" opacity="0.1"/>
 </svg>

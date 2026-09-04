@@ -26,7 +26,7 @@ export function DockContainer() {
   return (
     <div
       className={cn(
-        "fixed bottom-3 left-1/2 z-[90] flex h-14 -translate-x-1/2 items-end gap-3 rounded-2xl px-4 pb-5 pt-8",
+        "fixed bottom-3 left-1/2 z-[90] flex h-14 -translate-x-1/2 items-end gap-1.5 rounded-[26px] px-3 pb-4 pt-8",
         dockGlassPanel
       )}
     >
@@ -44,7 +44,7 @@ export function DockContainer() {
       ))}
 
       {/* Separator */}
-      <div className="h-8 w-px bg-foreground/10" />
+      <div className="mx-0.5 mb-1.5 h-9 w-px shrink-0 self-end bg-gradient-to-b from-transparent via-foreground/15 to-transparent" />
 
       {/* Games folder */}
       <DockFolder
@@ -63,7 +63,7 @@ export function DockContainer() {
       />
 
       {/* Separator */}
-      <div className="h-8 w-px bg-foreground/10" />
+      <div className="mx-0.5 mb-1.5 h-9 w-px shrink-0 self-end bg-gradient-to-b from-transparent via-foreground/15 to-transparent" />
 
       {/* Trash */}
       {trashApp && (

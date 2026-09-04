@@ -1,25 +1,18 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <!-- Light blue gradient background -->
   <defs>
-    <linearGradient id="contactGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#A9D0F5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#5B9FD1;stop-opacity:1" />
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5FC9F8"/>
+      <stop offset="100%" stop-color="#1B93DE"/>
     </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0C4A6E" flood-opacity="0.35"/>
+    </filter>
   </defs>
-  <rect width="256" height="256" fill="url(#contactGrad)"/>
-
-  <!-- White envelope -->
-  <g>
-    <!-- Envelope body -->
-    <rect x="50" y="70" width="156" height="100" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
-
-    <!-- Envelope flap (triangle) -->
-    <path d="M 50 70 L 128 120 L 206 70" fill="none" stroke="#D1D5DB" stroke-width="2" stroke-linejoin="round"/>
-
-    <!-- Inner fold line -->
-    <line x1="128" y1="120" x2="128" y2="170" stroke="#D1D5DB" stroke-width="1.5" opacity="0.5"/>
-
-    <!-- Subtle drop shadow -->
-    <ellipse cx="128" cy="178" rx="65" ry="10" fill="#000000" opacity="0.12"/>
+  <rect width="256" height="256" fill="url(#bg)"/>
+  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.14"/>
+  <g filter="url(#shadow)">
+    <rect x="46" y="78" width="164" height="116" rx="12" fill="#ffffff"/>
   </g>
+  <path d="M 46 90 Q 46 78 58 78 L 198 78 Q 210 78 210 90 L 128 148 Z" fill="#CFEBFF"/>
+  <path d="M 46 90 L 128 148 L 210 90" fill="none" stroke="#1B93DE" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
 </svg>
