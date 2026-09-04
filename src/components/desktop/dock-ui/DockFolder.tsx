@@ -14,7 +14,7 @@ import {
   dockGlassPanel,
   runningIndicatorClass,
 } from "./DockConfig";
-import type { DockMagnifyTransform } from "./useDockMagnification";
+import { DOCK_ICON_SIZE, type DockMagnifyTransform } from "./useDockMagnification";
 
 interface DockApp {
   id: AppId | string;
@@ -26,17 +26,15 @@ export function DockFolder({
   icon,
   apps,
   openApp,
-  innerRef,
   transform,
 }: {
   label: string;
   icon: ReactNode;
   apps: DockApp[];
   openApp: (id: AppId) => void;
-  innerRef?: (el: HTMLButtonElement | null) => void;
   transform?: DockMagnifyTransform;
 }) {
-  const { scale = 1, lift = 0 } = transform ?? {};
+  const scale = transform?.scale ?? 1;
   const [isOpen, setIsOpen] = useState(false);
   const { windows, focusedId, bouncingId } = useWindowManager();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -75,16 +73,16 @@ export function DockFolder({
   return (
     <div className="relative">
       <button
-        ref={innerRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={dockBtnClass}
         aria-label={label}
         aria-expanded={isOpen}
+        style={{ width: DOCK_ICON_SIZE * scale }}
       >
         <div
           className={cn(dockIconMotion, anyBounce && "animate-dock-bounce")}
-          style={{ transform: `translateY(-${lift}px) scale(${scale})` }}
+          style={{ transform: `scale(${scale})` }}
         >
           {icon}
         </div>
@@ -101,8 +99,15 @@ export function DockFolder({
           )}
         />
 
-        {/* Tooltip */}
-        {!isOpen && <span className={dockTooltipClass}>{label}</span>}
+        {/* Tooltip — cleared above the magnified icon's top edge */}
+        {!isOpen && (
+          <span
+            className={dockTooltipClass}
+            style={{ bottom: DOCK_ICON_SIZE * scale + 12 }}
+          >
+            {label}
+          </span>
+        )}
       </button>
 
       {/* Dropdown menu */}

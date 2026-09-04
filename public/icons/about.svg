@@ -1,17 +1,33 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8B93F8"/>
-      <stop offset="100%" stop-color="#5B5FEF"/>
+    <linearGradient id="frame" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#39A0F2"/>
+      <stop offset="100%" stop-color="#1A72DA"/>
     </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#3730A3" flood-opacity="0.35"/>
-    </filter>
+    <linearGradient id="left" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4FB0F7"/>
+      <stop offset="100%" stop-color="#2585E8"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2EAF3"/>
+    </linearGradient>
+    <clipPath id="face">
+      <rect x="14" y="14" width="228" height="228" rx="46"/>
+    </clipPath>
   </defs>
-  <rect width="256" height="256" fill="url(#bg)"/>
-  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.14"/>
-  <g filter="url(#shadow)">
-    <circle cx="128" cy="98" r="34" fill="#ffffff"/>
-    <path d="M 60 208 C 60 160 90 138 128 138 C 166 138 196 160 196 208 Z" fill="#ffffff"/>
+
+  <rect width="256" height="256" fill="url(#frame)"/>
+
+  <g clip-path="url(#face)">
+    <rect x="14" y="14" width="114" height="228" fill="url(#left)"/>
+    <rect x="128" y="14" width="114" height="228" fill="url(#right)"/>
   </g>
+
+  <!-- Eyes -->
+  <ellipse cx="90" cy="108" rx="9" ry="15" fill="#14334F"/>
+  <ellipse cx="166" cy="108" rx="9" ry="15" fill="#14334F"/>
+
+  <!-- Smile -->
+  <path d="M 72 150 Q 128 194 184 150" fill="none" stroke="#14334F" stroke-width="11" stroke-linecap="round"/>
 </svg>

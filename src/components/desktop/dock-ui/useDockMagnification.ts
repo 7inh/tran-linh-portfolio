@@ -1,32 +1,46 @@
 /**
- * Neighbor-aware dock magnification, like macOS: the cursor's distance to
- * each icon's center drives a smooth falloff curve, so icons near the
- * pointer grow and lift while farther ones taper back to their resting size.
+ * Neighbor-aware dock magnification, like macOS.
+ *
+ * Scales are derived from the cursor's position in *resting* layout space —
+ * a pure function of the pointer x and fixed geometry constants — rather than
+ * from measured element rects. That matters because each slot also widens as
+ * it magnifies (so icons push each other apart instead of overlapping); if the
+ * scale were computed from live rects, the widening would move elements under
+ * the cursor and feed back into the next frame, causing jitter.
+ *
+ * The dock is centre-anchored on screen, so its centre stays put no matter how
+ * wide it grows, which is what makes the resting-space mapping stable.
  */
 "use client";
 
-import { useCallback, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
+
+export const DOCK_ICON_SIZE = 56;
+export const DOCK_GAP = 6;
 
 const MAX_SCALE = 1.6;
-const INFLUENCE_RADIUS = 110; // px — distance at which magnification fades to 0
-const MAX_LIFT = 10; // px — extra upward pop at peak magnification
+/** Gaussian spread, tuned so two icons either side visibly react. */
+const SIGMA = 68;
+/** Beyond this the effect is negligible; clamp to exactly 1 to settle. */
+const CUTOFF = 210;
 
 export interface DockMagnifyTransform {
   scale: number;
-  lift: number;
 }
 
-export function useDockMagnification() {
-  const itemRefs = useRef<(HTMLElement | null)[]>([]);
+/**
+ * @param slotWidths resting width of every slot in order, icons and
+ * separators alike, so resting centres can be accumulated.
+ */
+export function useDockMagnification(slotWidths: number[]) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [mouseX, setMouseX] = useState<number | null>(null);
   const rafRef = useRef<number | null>(null);
-
-  const setItemRef = useCallback(
-    (index: number) => (el: HTMLElement | null) => {
-      itemRefs.current[index] = el;
-    },
-    []
-  );
 
   const onMouseMove = useCallback((e: ReactMouseEvent) => {
     const x = e.clientX;
@@ -39,24 +53,33 @@ export function useDockMagnification() {
     setMouseX(null);
   }, []);
 
-  const getTransform = useCallback(
-    (index: number): DockMagnifyTransform => {
-      if (mouseX == null) return { scale: 1, lift: 0 };
-      const el = itemRefs.current[index];
-      if (!el) return { scale: 1, lift: 0 };
-      const rect = el.getBoundingClientRect();
-      const center = rect.left + rect.width / 2;
-      const distance = Math.abs(mouseX - center);
-      if (distance >= INFLUENCE_RADIUS) return { scale: 1, lift: 0 };
-      const t = distance / INFLUENCE_RADIUS;
-      const falloff = Math.cos((t * Math.PI) / 2);
-      return {
-        scale: 1 + (MAX_SCALE - 1) * falloff,
-        lift: MAX_LIFT * falloff,
-      };
-    },
-    [mouseX]
-  );
+  // Resting centre of each slot, measured from the left edge of the content.
+  const restingCenters: number[] = [];
+  let cursor = 0;
+  let restingWidth = 0;
+  slotWidths.forEach((w, i) => {
+    restingCenters.push(cursor + w / 2);
+    cursor += w + (i < slotWidths.length - 1 ? DOCK_GAP : 0);
+  });
+  restingWidth = cursor;
 
-  return { setItemRef, onMouseMove, onMouseLeave, getTransform };
+  // Called during render, so there is nothing to gain from memoising it.
+  const getTransform = (index: number): DockMagnifyTransform => {
+    const el = containerRef.current;
+    if (mouseX == null || !el) return { scale: 1 };
+
+    // Centre is stable while the dock grows, unlike its left/right edges.
+    const rect = el.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    // Map the pointer into resting-layout space.
+    const u = mouseX - centerX + restingWidth / 2;
+
+    const distance = Math.abs(u - restingCenters[index]);
+    if (distance >= CUTOFF) return { scale: 1 };
+
+    const falloff = Math.exp(-(distance * distance) / (2 * SIGMA * SIGMA));
+    return { scale: 1 + (MAX_SCALE - 1) * falloff };
+  };
+
+  return { containerRef, onMouseMove, onMouseLeave, getTransform };
 }

@@ -10,11 +10,13 @@ import { GamesGlyph, UtilitiesGlyph } from "@/components/desktop/Dock";
 import { dockGlassPanel } from "./DockConfig";
 import { DockItem } from "./DockItem";
 import { DockFolder } from "./DockFolder";
-import { useDockMagnification } from "./useDockMagnification";
+import { DOCK_ICON_SIZE, useDockMagnification } from "./useDockMagnification";
+
+/** 1px rule plus its mx-1 margins, i.e. the footprint it actually occupies. */
+const SEPARATOR_WIDTH = 9;
 
 export function DockContainer() {
   const { windows, focusedId, bouncingId, openApp } = useWindowManager();
-  const { setItemRef, onMouseMove, onMouseLeave, getTransform } = useDockMagnification();
 
   // Filter apps into categories
   const mainApps = apps.filter(
@@ -27,13 +29,26 @@ export function DockContainer() {
   const utilityApps = apps.filter((app) => UTILITY_APP_IDS.includes(app.id as AppId));
   const trashApp = apps.find((app) => app.id === "trash");
 
-  // Stable index per rendered icon slot, so magnification can measure each one.
-  const gamesIndex = mainApps.length;
+  // Slot order: main apps, separator, Games, Utilities, separator, Trash.
+  // Separators occupy a slot so resting centres line up with what's rendered.
+  const slotWidths = [
+    ...mainApps.map(() => DOCK_ICON_SIZE),
+    SEPARATOR_WIDTH,
+    DOCK_ICON_SIZE,
+    DOCK_ICON_SIZE,
+    SEPARATOR_WIDTH,
+    ...(trashApp ? [DOCK_ICON_SIZE] : []),
+  ];
+  const gamesIndex = mainApps.length + 1;
   const utilitiesIndex = gamesIndex + 1;
-  const trashIndex = utilitiesIndex + 1;
+  const trashIndex = utilitiesIndex + 2;
+
+  const { containerRef, onMouseMove, onMouseLeave, getTransform } =
+    useDockMagnification(slotWidths);
 
   return (
     <div
+      ref={containerRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       className={cn(
@@ -51,7 +66,6 @@ export function DockContainer() {
           isFocused={focusedId === app.id && windows[app.id as AppId]?.open && !windows[app.id as AppId]?.minimized}
           isBounce={bouncingId === app.id}
           onClick={() => openApp(app.id as AppId)}
-          innerRef={setItemRef(index)}
           transform={getTransform(index)}
         />
       ))}
@@ -65,7 +79,6 @@ export function DockContainer() {
         icon={<GamesGlyph size="lg" className="size-full rounded-[14px]" />}
         apps={gameApps.map((app) => ({ id: app.id as AppId, label: app.label }))}
         openApp={openApp}
-        innerRef={setItemRef(gamesIndex)}
         transform={getTransform(gamesIndex)}
       />
 
@@ -75,7 +88,6 @@ export function DockContainer() {
         icon={<UtilitiesGlyph size="lg" className="size-full rounded-[14px]" />}
         apps={utilityApps.map((app) => ({ id: app.id as AppId, label: app.label }))}
         openApp={openApp}
-        innerRef={setItemRef(utilitiesIndex)}
         transform={getTransform(utilitiesIndex)}
       />
 
@@ -91,7 +103,6 @@ export function DockContainer() {
           isFocused={focusedId === trashApp.id && windows[trashApp.id as AppId]?.open && !windows[trashApp.id as AppId]?.minimized}
           isBounce={bouncingId === trashApp.id}
           onClick={() => openApp(trashApp.id as AppId)}
-          innerRef={setItemRef(trashIndex)}
           transform={getTransform(trashIndex)}
         />
       )}

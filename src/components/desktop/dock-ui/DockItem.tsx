@@ -10,7 +10,7 @@ import {
   dockTooltipClass,
   runningIndicatorClass,
 } from "./DockConfig";
-import type { DockMagnifyTransform } from "./useDockMagnification";
+import { DOCK_ICON_SIZE, type DockMagnifyTransform } from "./useDockMagnification";
 
 export function DockItem({
   id,
@@ -19,7 +19,6 @@ export function DockItem({
   isFocused,
   isBounce,
   onClick,
-  innerRef,
   transform,
 }: {
   id: AppId;
@@ -28,22 +27,23 @@ export function DockItem({
   isFocused: boolean;
   isBounce: boolean;
   onClick: () => void;
-  innerRef?: (el: HTMLButtonElement | null) => void;
   transform?: DockMagnifyTransform;
 }) {
-  const { scale = 1, lift = 0 } = transform ?? {};
+  const scale = transform?.scale ?? 1;
 
   return (
     <button
-      ref={innerRef}
       type="button"
       onClick={onClick}
       className={dockBtnClass}
       aria-label={label}
+      // The slot widens with the icon so neighbours are pushed aside
+      // instead of being overlapped.
+      style={{ width: DOCK_ICON_SIZE * scale }}
     >
       <div
         className={cn(dockIconMotion, isBounce && "animate-dock-bounce")}
-        style={{ transform: `translateY(-${lift}px) scale(${scale})` }}
+        style={{ transform: `scale(${scale})` }}
       >
         <AppGlyph id={id} size="lg" className="size-full rounded-[14px]" />
       </div>
@@ -60,8 +60,13 @@ export function DockItem({
         )}
       />
 
-      {/* Tooltip */}
-      <span className={dockTooltipClass}>{label}</span>
+      {/* Tooltip — cleared above the magnified icon's top edge */}
+      <span
+        className={dockTooltipClass}
+        style={{ bottom: DOCK_ICON_SIZE * scale + 12 }}
+      >
+        {label}
+      </span>
     </button>
   );
 }

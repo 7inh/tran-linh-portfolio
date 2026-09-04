@@ -1,23 +1,51 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#CBD5E1"/>
-      <stop offset="100%" stop-color="#8592A6"/>
+    <linearGradient id="glass" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.92"/>
+      <stop offset="18%" stop-color="#FFFFFF" stop-opacity="0.62"/>
+      <stop offset="50%" stop-color="#E9EEF3" stop-opacity="0.55"/>
+      <stop offset="82%" stop-color="#FFFFFF" stop-opacity="0.62"/>
+      <stop offset="100%" stop-color="#C9D3DD" stop-opacity="0.9"/>
     </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#334155" flood-opacity="0.3"/>
-    </filter>
+    <linearGradient id="rim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#EDF1F5"/>
+      <stop offset="100%" stop-color="#CBD5E0"/>
+    </linearGradient>
+    <clipPath id="binInner">
+      <path d="M 66 86 L 78 208 Q 79 218 90 218 L 166 218 Q 177 218 178 208 L 190 86 Z"/>
+    </clipPath>
   </defs>
-  <rect width="256" height="256" fill="url(#bg)"/>
-  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.2"/>
-  <g filter="url(#shadow)" fill="#ffffff">
-    <rect x="98" y="46" width="60" height="16" rx="6"/>
-    <rect x="70" y="66" width="116" height="18" rx="7"/>
-    <path d="M 84 92 L 96 200 Q 97 210 107 210 L 149 210 Q 159 210 160 200 L 172 92 Z"/>
+
+  <!-- Crumpled contents poking out of the bin -->
+  <g>
+    <circle cx="99" cy="72" r="19" fill="#4FC3F7"/>
+    <circle cx="126" cy="61" r="21" fill="#FFCA28"/>
+    <circle cx="154" cy="72" r="18" fill="#EF5A6F"/>
+    <circle cx="139" cy="80" r="14" fill="#26C6DA"/>
+    <circle cx="111" cy="82" r="13" fill="#AB7BE8"/>
   </g>
-  <g stroke="#8592A6" stroke-width="5" stroke-linecap="round" opacity="0.7">
-    <line x1="112" y1="108" x2="115" y2="188"/>
-    <line x1="128" y1="108" x2="128" y2="188"/>
-    <line x1="144" y1="108" x2="141" y2="188"/>
+
+  <!-- Contents continuing below the rim, seen through the glass -->
+  <g clip-path="url(#binInner)" opacity="0.55">
+    <circle cx="104" cy="104" r="20" fill="#4FC3F7"/>
+    <circle cx="146" cy="110" r="18" fill="#FFCA28"/>
+    <circle cx="124" cy="126" r="17" fill="#EF5A6F"/>
   </g>
+
+  <!-- Bin body -->
+  <path d="M 66 86 L 78 208 Q 79 218 90 218 L 166 218 Q 177 218 178 208 L 190 86 Z" fill="url(#glass)"/>
+  <path d="M 66 86 L 78 208 Q 79 218 90 218 L 166 218 Q 177 218 178 208 L 190 86 Z"
+        fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.75"/>
+
+  <!-- Vertical glass striping -->
+  <g stroke="#FFFFFF" stroke-width="3" opacity="0.4" clip-path="url(#binInner)">
+    <line x1="92" y1="88" x2="98" y2="216"/>
+    <line x1="128" y1="88" x2="128" y2="216"/>
+    <line x1="164" y1="88" x2="158" y2="216"/>
+  </g>
+
+  <!-- Rim -->
+  <ellipse cx="128" cy="86" rx="62" ry="15" fill="url(#rim)"/>
+  <ellipse cx="128" cy="86" rx="52" ry="9" fill="#93A3B4" opacity="0.35"/>
 </svg>

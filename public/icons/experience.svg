@@ -1,7 +1,7 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <rect width="256" height="256" fill="#000000"/>
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
-    <text x="66" y="140" font-size="46" font-weight="700" fill="#4ADE80">&gt;_</text>
+  <rect width="256" height="256" fill="#0A0A0A"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="74,96 116,128 74,160"/>
+    <line x1="136" y1="164" x2="184" y2="164"/>
   </g>
-  <rect x="66" y="156" width="58" height="6" rx="3" fill="#4ADE80" opacity="0.85"/>
 </svg>

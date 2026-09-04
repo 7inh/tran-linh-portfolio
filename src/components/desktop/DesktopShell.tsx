@@ -11,6 +11,7 @@ import { NotesApp } from "@/components/apps/NotesApp";
 import { ProjectsApp } from "@/components/apps/ProjectsApp";
 import { QRCodeApp } from "@/components/apps/QRCodeApp";
 import { TrashApp } from "@/components/apps/TrashApp";
+import { BootScreen } from "@/components/desktop/BootScreen";
 import { DockContainer } from "@/components/desktop/dock-ui";
 import { MenuBar } from "@/components/desktop/MenuBar";
 import { MediaPlayerProvider } from "@/components/desktop/MediaPlayerContext";
@@ -126,6 +127,7 @@ export function DesktopShell() {
           )}
         </WindowManagerProvider>
       </MediaPlayerProvider>
+      <BootScreen />
     </ThemeProvider>
   );
 }
