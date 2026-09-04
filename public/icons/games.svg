@@ -1,63 +1,150 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="139 39 506 506">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="577 76 893 893" role="img" aria-labelledby="title desc">
+  <title id="title">Overlapping gradient circles</title>
+  <desc id="desc">Editable vector recreation of cyan, yellow, purple and pink circles on a dark background, with green and violet intersections.</desc>
   <defs>
-    <!-- Cyan to Blue Gradient -->
-    <linearGradient id="cyanBlueGrad" x1="15%" y1="15%" x2="85%" y2="85%">
-      <stop offset="0%" stop-color="#2FD3FF"/>
-      <stop offset="55%" stop-color="#0082FF"/>
-      <stop offset="100%" stop-color="#0051FF"/>
-    </linearGradient>
-
-    <!-- Yellow Gradient -->
-    <linearGradient id="yellowGrad" x1="85%" y1="15%" x2="15%" y2="85%">
-      <stop offset="0%" stop-color="#FFEC00"/>
-      <stop offset="60%" stop-color="#FFC400"/>
-      <stop offset="100%" stop-color="#FF9100"/>
-    </linearGradient>
-
-    <!-- Vibrant Green Overlap Gradient -->
-    <linearGradient id="vibrantGreenGrad" x1="30%" y1="10%" x2="70%" y2="90%">
-      <stop offset="0%" stop-color="#72EC16"/>
-      <stop offset="50%" stop-color="#2ED147"/>
-      <stop offset="100%" stop-color="#00B050"/>
-    </linearGradient>
-
-    <!-- Purple Gradient -->
-    <linearGradient id="purpleGrad" x1="20%" y1="10%" x2="80%" y2="90%">
-      <stop offset="0%" stop-color="#9E3BFF"/>
-      <stop offset="60%" stop-color="#8000FF"/>
-      <stop offset="100%" stop-color="#6200EA"/>
-    </linearGradient>
-
-    <!-- Red / Pink Gradient -->
-    <linearGradient id="redPinkGrad" x1="25%" y1="15%" x2="75%" y2="85%">
-      <stop offset="0%" stop-color="#FF4D4D"/>
-      <stop offset="50%" stop-color="#FF1767"/>
-      <stop offset="100%" stop-color="#E0007A"/>
-    </linearGradient>
-
-    <!-- Clip Path for Cyan Circle -->
-    <clipPath id="cyanClip">
-      <circle cx="340" cy="240" r="145"/>
-    </clipPath>
+<linearGradient id="blue" gradientUnits="userSpaceOnUse" x1="1024.723" y1="189.066" x2="1023.677" y2="693.462">
+  <stop offset="0.0000" stop-color="#4cecfc"/>
+  <stop offset="0.0625" stop-color="#4be9fc"/>
+  <stop offset="0.1250" stop-color="#48e5fc"/>
+  <stop offset="0.1875" stop-color="#46e0fc"/>
+  <stop offset="0.2500" stop-color="#43dbfc"/>
+  <stop offset="0.3125" stop-color="#40d5fc"/>
+  <stop offset="0.3750" stop-color="#3ccffd"/>
+  <stop offset="0.4375" stop-color="#38c7fd"/>
+  <stop offset="0.5000" stop-color="#34c0fd"/>
+  <stop offset="0.5625" stop-color="#30b8fd"/>
+  <stop offset="0.6250" stop-color="#2baffd"/>
+  <stop offset="0.6875" stop-color="#26a6fe"/>
+  <stop offset="0.7500" stop-color="#219dfe"/>
+  <stop offset="0.8125" stop-color="#1b93fe"/>
+  <stop offset="0.8750" stop-color="#168afe"/>
+  <stop offset="0.9375" stop-color="#107ffe"/>
+  <stop offset="1.0000" stop-color="#0a75fe"/>
+</linearGradient>
+<linearGradient id="yellow" gradientUnits="userSpaceOnUse" x1="1023.927" y1="165.017" x2="1023.996" y2="516.057">
+  <stop offset="0.0000" stop-color="#fff21f"/>
+  <stop offset="0.0625" stop-color="#fff01f"/>
+  <stop offset="0.1250" stop-color="#ffef20"/>
+  <stop offset="0.1875" stop-color="#ffec20"/>
+  <stop offset="0.2500" stop-color="#ffe920"/>
+  <stop offset="0.3125" stop-color="#ffe621"/>
+  <stop offset="0.3750" stop-color="#ffe321"/>
+  <stop offset="0.4375" stop-color="#ffdf22"/>
+  <stop offset="0.5000" stop-color="#ffda22"/>
+  <stop offset="0.5625" stop-color="#ffd523"/>
+  <stop offset="0.6250" stop-color="#ffd023"/>
+  <stop offset="0.6875" stop-color="#ffcb24"/>
+  <stop offset="0.7500" stop-color="#ffc524"/>
+  <stop offset="0.8125" stop-color="#ffbf25"/>
+  <stop offset="0.8750" stop-color="#ffb925"/>
+  <stop offset="0.9375" stop-color="#ffb226"/>
+  <stop offset="1.0000" stop-color="#ffab27"/>
+</linearGradient>
+<linearGradient id="green" gradientUnits="userSpaceOnUse" x1="1024.006" y1="198.000" x2="1024.000" y2="552.000">
+  <stop offset="0.0000" stop-color="#d4ed62"/>
+  <stop offset="0.0625" stop-color="#c4e860"/>
+  <stop offset="0.1250" stop-color="#b5e35e"/>
+  <stop offset="0.1875" stop-color="#a5dd5c"/>
+  <stop offset="0.2500" stop-color="#96d85a"/>
+  <stop offset="0.3125" stop-color="#88d358"/>
+  <stop offset="0.3750" stop-color="#7acf56"/>
+  <stop offset="0.4375" stop-color="#6dca55"/>
+  <stop offset="0.5000" stop-color="#60c653"/>
+  <stop offset="0.5625" stop-color="#54c152"/>
+  <stop offset="0.6250" stop-color="#48bd50"/>
+  <stop offset="0.6875" stop-color="#3dba4f"/>
+  <stop offset="0.7500" stop-color="#33b64d"/>
+  <stop offset="0.8125" stop-color="#29b34c"/>
+  <stop offset="0.8750" stop-color="#20b04b"/>
+  <stop offset="0.9375" stop-color="#18ad4a"/>
+  <stop offset="1.0000" stop-color="#10aa49"/>
+</linearGradient>
+<linearGradient id="purple" gradientUnits="userSpaceOnUse" x1="1049.671" y1="537.469" x2="803.714" y2="537.763">
+  <stop offset="0.0000" stop-color="#dd56e7"/>
+  <stop offset="0.0625" stop-color="#da54e8"/>
+  <stop offset="0.1250" stop-color="#d551e9"/>
+  <stop offset="0.1875" stop-color="#d14eea"/>
+  <stop offset="0.2500" stop-color="#cb4bec"/>
+  <stop offset="0.3125" stop-color="#c647ed"/>
+  <stop offset="0.3750" stop-color="#c043ee"/>
+  <stop offset="0.4375" stop-color="#ba3ff0"/>
+  <stop offset="0.5000" stop-color="#b33bf2"/>
+  <stop offset="0.5625" stop-color="#ad37f3"/>
+  <stop offset="0.6250" stop-color="#a733f5"/>
+  <stop offset="0.6875" stop-color="#a02ff7"/>
+  <stop offset="0.7500" stop-color="#9a2bf8"/>
+  <stop offset="0.8125" stop-color="#9427fa"/>
+  <stop offset="0.8750" stop-color="#8e23fb"/>
+  <stop offset="0.9375" stop-color="#881ffd"/>
+  <stop offset="1.0000" stop-color="#831cff"/>
+</linearGradient>
+<linearGradient id="blue-purple" gradientUnits="userSpaceOnUse" x1="1023.993" y1="618.006" x2="1023.983" y2="738.009">
+  <stop offset="0.0000" stop-color="#3182e9"/>
+  <stop offset="0.0625" stop-color="#367cea"/>
+  <stop offset="0.1250" stop-color="#3b76eb"/>
+  <stop offset="0.1875" stop-color="#3f6fed"/>
+  <stop offset="0.2500" stop-color="#4469ee"/>
+  <stop offset="0.3125" stop-color="#4963f0"/>
+  <stop offset="0.3750" stop-color="#4e5df1"/>
+  <stop offset="0.4375" stop-color="#5257f2"/>
+  <stop offset="0.5000" stop-color="#5750f4"/>
+  <stop offset="0.5625" stop-color="#5b4af5"/>
+  <stop offset="0.6250" stop-color="#6044f6"/>
+  <stop offset="0.6875" stop-color="#653ef8"/>
+  <stop offset="0.7500" stop-color="#6938f9"/>
+  <stop offset="0.8125" stop-color="#6e32fa"/>
+  <stop offset="0.8750" stop-color="#732cfb"/>
+  <stop offset="0.9375" stop-color="#7726fc"/>
+  <stop offset="1.0000" stop-color="#7c20fe"/>
+</linearGradient>
+<linearGradient id="red" gradientUnits="userSpaceOnUse" x1="1069.905" y1="420.048" x2="933.232" y2="769.740">
+  <stop offset="0.0000" stop-color="#fe8944"/>
+  <stop offset="0.0625" stop-color="#fe7c4e"/>
+  <stop offset="0.1250" stop-color="#fe7157"/>
+  <stop offset="0.1875" stop-color="#fe675f"/>
+  <stop offset="0.2500" stop-color="#fe5d66"/>
+  <stop offset="0.3125" stop-color="#fe556c"/>
+  <stop offset="0.3750" stop-color="#fe4e72"/>
+  <stop offset="0.4375" stop-color="#fe4777"/>
+  <stop offset="0.5000" stop-color="#fe417c"/>
+  <stop offset="0.5625" stop-color="#fe3c80"/>
+  <stop offset="0.6250" stop-color="#fe3883"/>
+  <stop offset="0.6875" stop-color="#fe3486"/>
+  <stop offset="0.7500" stop-color="#fe3089"/>
+  <stop offset="0.8125" stop-color="#ff2d8c"/>
+  <stop offset="0.8750" stop-color="#ff2a8e"/>
+  <stop offset="0.9375" stop-color="#ff2890"/>
+  <stop offset="1.0000" stop-color="#ff2691"/>
+</linearGradient>
+<linearGradient id="red-blue" gradientUnits="userSpaceOnUse" x1="1038.162" y1="451.777" x2="992.296" y2="729.406">
+  <stop offset="0.0000" stop-color="#eb463b"/>
+  <stop offset="0.0625" stop-color="#ec4440"/>
+  <stop offset="0.1250" stop-color="#ed4345"/>
+  <stop offset="0.1875" stop-color="#ef4149"/>
+  <stop offset="0.2500" stop-color="#f03f4d"/>
+  <stop offset="0.3125" stop-color="#f23e4f"/>
+  <stop offset="0.3750" stop-color="#f43c52"/>
+  <stop offset="0.4375" stop-color="#f63b53"/>
+  <stop offset="0.5000" stop-color="#f73955"/>
+  <stop offset="0.5625" stop-color="#f93855"/>
+  <stop offset="0.6250" stop-color="#fb3656"/>
+  <stop offset="0.6875" stop-color="#fc3556"/>
+  <stop offset="0.7500" stop-color="#fd3356"/>
+  <stop offset="0.8125" stop-color="#fe3256"/>
+  <stop offset="0.8750" stop-color="#fe3056"/>
+  <stop offset="0.9375" stop-color="#fd2f56"/>
+  <stop offset="1.0000" stop-color="#fc2e57"/>
+</linearGradient>
+    <clipPath id="blue-clip"><circle cx="953" cy="463" r="282"/></clipPath>
   </defs>
-
-  <!-- Background: covers the cropped viewBox, not just the original canvas -->
-  <rect x="139" y="39" width="506" height="506" fill="#141416"/>
-
-  <g>
-    <!-- Cyan/Blue Base Circle -->
-    <circle cx="340" cy="240" r="145" fill="url(#cyanBlueGrad)"/>
-
-    <!-- Yellow Circle -->
-    <circle cx="455" cy="215" r="130" fill="url(#yellowGrad)" opacity="0.88"/>
-
-    <!-- Luminous Green Intersection (Clipped to Cyan Circle) -->
-    <circle cx="455" cy="215" r="130" fill="url(#vibrantGreenGrad)" opacity="0.92" clip-path="url(#cyanClip)"/>
-
-    <!-- Purple Circle -->
-    <circle cx="355" cy="420" r="80" fill="url(#purpleGrad)" opacity="0.82"/>
-
-    <!-- Red/Pink Circle -->
-    <circle cx="465" cy="370" r="125" fill="url(#redPinkGrad)" opacity="0.88"/>
+  <rect id="background" width="2048" height="1075" fill="#121315"/>
+  <g id="circles">
+    <circle cx="1148" cy="380" r="223" fill="url(#yellow)"/>
+    <circle cx="953" cy="463" r="282" fill="url(#blue)"/>
+    <g clip-path="url(#blue-clip)"><circle cx="1148" cy="380" r="223" fill="url(#green)"/></g>
+    <circle cx="935" cy="750" r="139" fill="url(#purple)"/>
+    <g clip-path="url(#blue-clip)"><circle cx="935" cy="750" r="139" fill="url(#blue-purple)"/></g>
+    <circle cx="1183" cy="666" r="193" fill="url(#red)"/>
+    <g clip-path="url(#blue-clip)"><circle cx="1183" cy="666" r="193" fill="url(#red-blue)"/></g>
   </g>
 </svg>
