@@ -1,20 +1,22 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#C084FC"/>
-      <stop offset="100%" stop-color="#8B3EE0"/>
+    <linearGradient id="tile" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EDEFF2"/>
     </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#581C87" flood-opacity="0.35"/>
-    </filter>
   </defs>
-  <rect width="256" height="256" fill="url(#bg)"/>
-  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.14"/>
-  <g filter="url(#shadow)">
-    <path d="M 66 108 Q 46 108 46 138 L 46 158 Q 46 178 66 178 L 82 178 L 100 160 L 156 160 L 174 178 L 190 178 Q 210 178 210 158 L 210 138 Q 210 108 190 108 Z" fill="#ffffff"/>
+  <rect width="256" height="256" fill="url(#tile)"/>
+
+  <!-- D-pad arms: flat outer edge, apex meeting at the centre so the gaps
+       between them read as an X. Controller button colours. -->
+  <g stroke="#1A1A1A" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">
+    <!-- up -->
+    <path d="M 96 32 L 160 32 L 160 96 L 128 128 L 96 96 Z" fill="#F5C518"/>
+    <!-- right -->
+    <path d="M 224 96 L 224 160 L 160 160 L 128 128 L 160 96 Z" fill="#E5342B"/>
+    <!-- down -->
+    <path d="M 160 224 L 96 224 L 96 160 L 128 128 L 160 160 Z" fill="#2FA84F"/>
+    <!-- left -->
+    <path d="M 32 160 L 32 96 L 96 96 L 128 128 L 96 160 Z" fill="#2E7DE0"/>
   </g>
-  <rect x="70" y="130" width="10" height="28" rx="3" fill="#8B3EE0"/>
-  <rect x="59" y="141" width="32" height="10" rx="3" fill="#8B3EE0"/>
-  <circle cx="152" cy="132" r="9" fill="#8B3EE0"/>
-  <circle cx="180" cy="146" r="9" fill="#8B3EE0"/>
 </svg>
