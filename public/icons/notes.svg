@@ -1,23 +1,45 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FDE68A"/>
-      <stop offset="100%" stop-color="#F5A524"/>
+    <linearGradient id="paper" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F1F1EF"/>
     </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#92400E" flood-opacity="0.35"/>
-    </filter>
+    <linearGradient id="band" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FCDE6C"/>
+      <stop offset="100%" stop-color="#F5CE49"/>
+    </linearGradient>
   </defs>
-  <rect width="256" height="256" fill="url(#bg)"/>
-  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.18"/>
-  <g filter="url(#shadow)">
-    <path d="M 62 54 Q 62 44 72 44 L 184 44 Q 194 44 194 54 L 194 190 L 152 212 L 72 212 Q 62 212 62 202 Z" fill="#ffffff"/>
-  </g>
-  <path d="M 194 190 L 152 212 L 152 198 Q 152 190 160 190 Z" fill="#F1E4C8"/>
-  <g stroke="#F5A524" stroke-width="7" stroke-linecap="round" opacity="0.85">
-    <line x1="82" y1="86" x2="174" y2="86"/>
-    <line x1="82" y1="112" x2="174" y2="112"/>
-    <line x1="82" y1="138" x2="174" y2="138"/>
-    <line x1="82" y1="164" x2="140" y2="164"/>
+
+  <!-- Paper -->
+  <rect width="256" height="256" fill="url(#paper)"/>
+
+  <!-- Yellow header band -->
+  <rect width="256" height="72" fill="url(#band)"/>
+
+  <!-- Tear-off perforation -->
+  <circle cx="26" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="38" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="50" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="62" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="74" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="86" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="98" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="110" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="122" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="134" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="146" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="158" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="170" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="182" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="194" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="206" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="218" cy="72" r="2.6" fill="#E0BE45"/>
+    <circle cx="230" cy="72" r="2.6" fill="#E0BE45"/>
+
+  <!-- Ruled lines -->
+  <g stroke="#C9C9C6" stroke-width="8" stroke-linecap="round">
+    <line x1="34" y1="116" x2="222" y2="116"/>
+    <line x1="34" y1="158" x2="222" y2="158"/>
+    <line x1="34" y1="200" x2="222" y2="200"/>
   </g>
 </svg>

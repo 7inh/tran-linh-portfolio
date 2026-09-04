@@ -37,7 +37,7 @@ export function DockContainer() {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       className={cn(
-        "fixed bottom-3 left-1/2 z-[90] flex h-14 -translate-x-1/2 items-end gap-2 rounded-[26px] px-3 pb-4 pt-8",
+        "fixed bottom-2 left-1/2 z-[90] flex -translate-x-1/2 items-end gap-1.5 rounded-[22px] px-2 pb-3.5 pt-2",
         dockGlassPanel
       )}
     >
@@ -57,7 +57,7 @@ export function DockContainer() {
       ))}
 
       {/* Separator */}
-      <div className="mx-0.5 mb-1.5 h-9 w-px shrink-0 self-end bg-gradient-to-b from-transparent via-foreground/15 to-transparent" />
+      <div className="mx-1 mb-1 h-11 w-px shrink-0 self-end bg-gradient-to-b from-transparent via-foreground/20 to-transparent" />
 
       {/* Games folder */}
       <DockFolder
@@ -80,7 +80,7 @@ export function DockContainer() {
       />
 
       {/* Separator */}
-      <div className="mx-0.5 mb-1.5 h-9 w-px shrink-0 self-end bg-gradient-to-b from-transparent via-foreground/15 to-transparent" />
+      <div className="mx-1 mb-1 h-11 w-px shrink-0 self-end bg-gradient-to-b from-transparent via-foreground/20 to-transparent" />
 
       {/* Trash */}
       {trashApp && (

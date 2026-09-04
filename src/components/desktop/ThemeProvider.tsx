@@ -25,11 +25,12 @@ function applyDomDark(dark: boolean) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [dark, setDarkState] = useState(false);
+  // Dark is the default; layout.tsx already put `dark` on <html>.
+  const [dark, setDarkState] = useState(true);
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    const next = stored === "dark";
+    const next = stored ? stored === "dark" : true;
     setDarkState(next);
     applyDomDark(next);
   }, []);
