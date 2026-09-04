@@ -2,21 +2,53 @@
   <defs>
     <linearGradient id="tile" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#EDEFF2"/>
+      <stop offset="100%" stop-color="#ECEEF1"/>
     </linearGradient>
+
+    <!-- Saturated at the outer end, clearing toward the centre, so each arm
+         reads as translucent glass rather than a flat block. -->
+    <linearGradient id="gUp" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#FFD770"/>
+      <stop offset="100%" stop-color="#F5A300"/>
+    </linearGradient>
+    <linearGradient id="gRight" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#FF9E97"/>
+      <stop offset="100%" stop-color="#EE2B22"/>
+    </linearGradient>
+    <linearGradient id="gDown" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#84E89A"/>
+      <stop offset="100%" stop-color="#0E9C45"/>
+    </linearGradient>
+    <linearGradient id="gLeft" x1="100%" y1="50%" x2="0%" y2="50%">
+      <stop offset="0%" stop-color="#8FC3FF"/>
+      <stop offset="100%" stop-color="#0A62DE"/>
+    </linearGradient>
+
+    <!-- Glass sheen laid over the top half of every arm. -->
+    <linearGradient id="sheen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#2A2F3A" flood-opacity="0.22"/>
+    </filter>
   </defs>
+
   <rect width="256" height="256" fill="url(#tile)"/>
 
-  <!-- D-pad arms: flat outer edge, apex meeting at the centre so the gaps
-       between them read as an X. Controller button colours. -->
-  <g stroke="#1A1A1A" stroke-width="11" stroke-linejoin="round" stroke-linecap="round">
-    <!-- up -->
-    <path d="M 96 32 L 160 32 L 160 96 L 128 128 L 96 96 Z" fill="#F5C518"/>
-    <!-- right -->
-    <path d="M 224 96 L 224 160 L 160 160 L 128 128 L 160 96 Z" fill="#E5342B"/>
-    <!-- down -->
-    <path d="M 160 224 L 96 224 L 96 160 L 128 128 L 160 160 Z" fill="#2FA84F"/>
-    <!-- left -->
-    <path d="M 32 160 L 32 96 L 96 96 L 128 128 L 96 160 Z" fill="#2E7DE0"/>
+  <g filter="url(#lift)" stroke-linejoin="round" stroke-width="9">
+    <path id="up"    d="M 100 40 L 156 40 L 156 90 L 128 118 L 100 90 Z"    fill="url(#gUp)"    stroke="url(#gUp)"/>
+    <path id="right" d="M 216 100 L 216 156 L 166 156 L 138 128 L 166 100 Z" fill="url(#gRight)" stroke="url(#gRight)"/>
+    <path id="down"  d="M 156 216 L 100 216 L 100 166 L 128 138 L 156 166 Z" fill="url(#gDown)"  stroke="url(#gDown)"/>
+    <path id="left"  d="M 40 156 L 40 100 L 90 100 L 118 128 L 90 156 Z"     fill="url(#gLeft)"  stroke="url(#gLeft)"/>
+  </g>
+
+  <g stroke-linejoin="round" stroke-width="9" stroke="url(#sheen)" fill="url(#sheen)">
+    <use href="#up"/>
+    <use href="#right"/>
+    <use href="#down"/>
+    <use href="#left"/>
   </g>
 </svg>
