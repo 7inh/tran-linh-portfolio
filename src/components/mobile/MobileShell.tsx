@@ -198,13 +198,13 @@ export function MobileShell() {
             </div>
             <div className="mt-3 grid grid-cols-4 gap-x-3 gap-y-5 overflow-y-auto py-2">
               <HomeIconButton label="Games" onClick={() => setFolder("games")}>
-                <FolderGlyph src="/icons/games.png" label="Games" />
+                <FolderGlyph src="/icons/games.svg" label="Games" />
               </HomeIconButton>
               <HomeIconButton
                 label="Utilities"
                 onClick={() => setFolder("utilities")}
               >
-                <FolderGlyph src="/icons/utilities.png" label="Utilities" />
+                <FolderGlyph src="/icons/utilities.svg" label="Utilities" />
               </HomeIconButton>
               {GRID_APP_IDS.map((id) => {
                 const app = apps.find((a) => a.id === id)!;

@@ -1,0 +1,50 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark gradient background -->
+  <defs>
+    <linearGradient id="qrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#334155;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F172A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#qrGrad)"/>
+
+  <!-- QR code pattern -->
+  <g fill="#F8FAFC">
+    <!-- Corner square 1 (top-left) -->
+    <rect x="30" y="30" width="50" height="50" fill="none" stroke="#F8FAFC" stroke-width="8"/>
+    <rect x="38" y="38" width="34" height="34" fill="#F8FAFC"/>
+
+    <!-- Corner square 2 (top-right) -->
+    <rect x="176" y="30" width="50" height="50" fill="none" stroke="#F8FAFC" stroke-width="8"/>
+    <rect x="184" y="38" width="34" height="34" fill="#F8FAFC"/>
+
+    <!-- Corner square 3 (bottom-left) -->
+    <rect x="30" y="176" width="50" height="50" fill="none" stroke="#F8FAFC" stroke-width="8"/>
+    <rect x="38" y="184" width="34" height="34" fill="#F8FAFC"/>
+
+    <!-- QR data pattern (random blocks) -->
+    <rect x="100" y="60" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="112" y="60" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="124" y="60" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="136" y="60" width="8" height="8" fill="#F8FAFC"/>
+
+    <rect x="100" y="76" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="124" y="76" width="8" height="8" fill="#F8FAFC"/>
+
+    <rect x="112" y="92" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="124" y="92" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="136" y="92" width="8" height="8" fill="#F8FAFC"/>
+
+    <!-- More scattered pattern -->
+    <rect x="100" y="120" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="112" y="130" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="124" y="140" width="8" height="8" fill="#F8FAFC"/>
+    <rect x="136" y="150" width="8" height="8" fill="#F8FAFC"/>
+
+    <!-- Cyan accent square -->
+    <rect x="150" y="150" width="12" height="12" fill="#22D3EE" opacity="0.8"/>
+  </g>
+
+  <!-- Subtle drop shadow -->
+  <ellipse cx="128" cy="235" rx="70" ry="10" fill="#000000" opacity="0.1"/>
+</svg>

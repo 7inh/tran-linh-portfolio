@@ -51,7 +51,7 @@ export function AppGlyph({
       )}
     >
       <Image
-        src={`/icons/${id}.png`}
+        src={`/icons/${id}.svg`}
         alt=""
         width={px}
         height={px}
@@ -86,7 +86,7 @@ function GamesGlyph({
       )}
     >
       <Image
-        src="/icons/games.png"
+        src="/icons/games.svg"
         alt=""
         width={px}
         height={px}
@@ -116,7 +116,7 @@ function UtilitiesGlyph({
       )}
     >
       <Image
-        src="/icons/utilities.png"
+        src="/icons/utilities.svg"
         alt=""
         width={px}
         height={px}

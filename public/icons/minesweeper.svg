@@ -1,0 +1,46 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gray gradient background -->
+  <defs>
+    <linearGradient id="mineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9CA3AF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4B5563;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#mineGrad)"/>
+
+  <!-- Spiked mine ball -->
+  <g>
+    <!-- Main sphere -->
+    <circle cx="128" cy="128" r="48" fill="#F8FAFC"/>
+
+    <!-- Spikes arranged around the sphere -->
+    <g fill="#F8FAFC" stroke="none">
+      <!-- Top spike -->
+      <polygon points="128,65 130,45 126,45"/>
+      <!-- Top-right spikes -->
+      <polygon points="160,85 172,75 165,70"/>
+      <polygon points="170,100 186,90 180,88"/>
+      <!-- Right spikes -->
+      <polygon points="185,128 205,130 200,125"/>
+      <polygon points="172,155 188,165 185,160"/>
+      <!-- Bottom-right spikes -->
+      <polygon points="160,170 172,185 167,180"/>
+      <!-- Bottom spike -->
+      <polygon points="128,190 130,210 126,210"/>
+      <!-- Bottom-left spikes -->
+      <polygon points="95,170 84,185 89,180"/>
+      <polygon points="85,155 68,165 71,160"/>
+      <!-- Left spikes -->
+      <polygon points="70,128 50,130 56,125"/>
+      <polygon points="83,100 70,90 76,88"/>
+      <!-- Top-left spikes -->
+      <polygon points="95,85 84,75 91,70"/>
+    </g>
+
+    <!-- Inner highlight -->
+    <circle cx="120" cy="115" r="15" fill="#FFFFFF" opacity="0.3"/>
+  </g>
+
+  <!-- Drop shadow -->
+  <ellipse cx="128" cy="220" rx="60" ry="12" fill="#000000" opacity="0.15"/>
+</svg>
