@@ -69,7 +69,7 @@ export function AppGlyph({
   );
 }
 
-function GamesGlyph({
+export function GamesGlyph({
   size = "lg",
   className,
 }: {
@@ -99,7 +99,7 @@ function GamesGlyph({
   );
 }
 
-function UtilitiesGlyph({
+export function UtilitiesGlyph({
   size = "lg",
   className,
 }: {

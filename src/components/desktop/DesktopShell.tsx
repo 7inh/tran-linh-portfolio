@@ -10,7 +10,7 @@ import { MinesweeperApp } from "@/components/apps/MinesweeperApp";
 import { ProjectsApp } from "@/components/apps/ProjectsApp";
 import { QRCodeApp } from "@/components/apps/QRCodeApp";
 import { TrashApp } from "@/components/apps/TrashApp";
-import { Dock } from "@/components/desktop/Dock";
+import { DockContainer } from "@/components/desktop/dock-ui";
 import { MenuBar } from "@/components/desktop/MenuBar";
 import { MediaPlayerProvider } from "@/components/desktop/MediaPlayerContext";
 import { ThemeProvider } from "@/components/desktop/ThemeProvider";
@@ -101,7 +101,7 @@ function DesktopCanvas() {
           {appContent[id]}
         </Window>
       ))}
-      <Dock />
+      <DockContainer />
     </div>
   );
 }
