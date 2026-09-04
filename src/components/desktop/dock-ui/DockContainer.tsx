@@ -43,12 +43,11 @@ export function DockContainer() {
   const utilitiesIndex = gamesIndex + 1;
   const trashIndex = utilitiesIndex + 2;
 
-  const { containerRef, onMouseMove, onMouseLeave, getTransform } =
+  const { onMouseMove, onMouseLeave, getTransform } =
     useDockMagnification(slotWidths);
 
   return (
     <div
-      ref={containerRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       className={cn(
