@@ -14,7 +14,7 @@ import {
   dockGlassPanel,
   runningIndicatorClass,
 } from "./DockConfig";
-import { DockItem } from "./DockItem";
+import type { DockMagnifyTransform } from "./useDockMagnification";
 
 interface DockApp {
   id: AppId | string;
@@ -26,12 +26,17 @@ export function DockFolder({
   icon,
   apps,
   openApp,
+  innerRef,
+  transform,
 }: {
   label: string;
   icon: ReactNode;
   apps: DockApp[];
   openApp: (id: AppId) => void;
+  innerRef?: (el: HTMLButtonElement | null) => void;
+  transform?: DockMagnifyTransform;
 }) {
+  const { scale = 1, lift = 0 } = transform ?? {};
   const [isOpen, setIsOpen] = useState(false);
   const { windows, focusedId, bouncingId } = useWindowManager();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -70,13 +75,19 @@ export function DockFolder({
   return (
     <div className="relative">
       <button
+        ref={innerRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={dockBtnClass}
         aria-label={label}
         aria-expanded={isOpen}
       >
-        <div className={dockIconMotion}>{icon}</div>
+        <div
+          className={cn(dockIconMotion, anyBounce && "animate-dock-bounce")}
+          style={{ transform: `translateY(-${lift}px) scale(${scale})` }}
+        >
+          {icon}
+        </div>
 
         {/* Running indicator dot */}
         <span

@@ -4,6 +4,7 @@ export type AppId =
   | "experience"
   | "contact"
   | "browser"
+  | "notes"
   | "qrcode"
   | "dino"
   | "minesweeper"
@@ -293,6 +294,12 @@ export const apps: {
     title: "Browser",
     label: "Browser",
     defaultSize: { width: 760, height: 560 },
+  },
+  {
+    id: "notes",
+    title: "Notes",
+    label: "Notes",
+    defaultSize: { width: 620, height: 460 },
   },
   {
     id: "qrcode",

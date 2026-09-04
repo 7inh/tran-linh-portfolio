@@ -9,6 +9,7 @@ import { ContactApp } from "@/components/apps/ContactApp";
 import { DinoGameApp } from "@/components/apps/DinoGameApp";
 import { ExperienceApp } from "@/components/apps/ExperienceApp";
 import { MinesweeperApp } from "@/components/apps/MinesweeperApp";
+import { NotesApp } from "@/components/apps/NotesApp";
 import { ProjectsApp } from "@/components/apps/ProjectsApp";
 import { QRCodeApp } from "@/components/apps/QRCodeApp";
 import { TrashApp } from "@/components/apps/TrashApp";
@@ -32,6 +33,7 @@ const appContent: Record<AppId, ReactNode> = {
   experience: <ExperienceApp />,
   contact: <ContactApp />,
   browser: <BrowserApp />,
+  notes: <NotesApp />,
   qrcode: <QRCodeApp />,
   dino: <DinoGameApp />,
   minesweeper: <MinesweeperApp />,
@@ -39,7 +41,7 @@ const appContent: Record<AppId, ReactNode> = {
 };
 
 const DOCK_APP_IDS: AppId[] = ["about", "projects", "experience", "contact"];
-const GRID_APP_IDS: AppId[] = ["trash", "browser"];
+const GRID_APP_IDS: AppId[] = ["trash", "browser", "notes"];
 
 type FolderId = "games" | "utilities" | null;
 

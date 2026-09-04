@@ -10,6 +10,7 @@ import {
   dockTooltipClass,
   runningIndicatorClass,
 } from "./DockConfig";
+import type { DockMagnifyTransform } from "./useDockMagnification";
 
 export function DockItem({
   id,
@@ -18,6 +19,8 @@ export function DockItem({
   isFocused,
   isBounce,
   onClick,
+  innerRef,
+  transform,
 }: {
   id: AppId;
   label: string;
@@ -25,19 +28,22 @@ export function DockItem({
   isFocused: boolean;
   isBounce: boolean;
   onClick: () => void;
+  innerRef?: (el: HTMLButtonElement | null) => void;
+  transform?: DockMagnifyTransform;
 }) {
+  const { scale = 1, lift = 0 } = transform ?? {};
+
   return (
     <button
+      ref={innerRef}
       type="button"
       onClick={onClick}
       className={dockBtnClass}
       aria-label={label}
     >
       <div
-        className={cn(
-          dockIconMotion,
-          isBounce && "animate-dock-bounce"
-        )}
+        className={cn(dockIconMotion, isBounce && "animate-dock-bounce")}
+        style={{ transform: `translateY(-${lift}px) scale(${scale})` }}
       >
         <AppGlyph id={id} size="lg" className="size-full rounded-[14px]" />
       </div>

@@ -1,17 +1,16 @@
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="folderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#6DB4FA"/>
-      <stop offset="100%" stop-color="#2E7CE0"/>
+      <stop offset="100%" stop-color="#1D6FD1"/>
     </linearGradient>
     <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1E3A8A" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1E3A8A" flood-opacity="0.25"/>
     </filter>
   </defs>
-  <rect width="256" height="256" fill="url(#bg)"/>
-  <ellipse cx="86" cy="56" rx="140" ry="76" fill="#ffffff" opacity="0.14"/>
+  <rect width="256" height="256" fill="#ffffff"/>
   <g filter="url(#shadow)">
-    <path d="M 52 96 L 52 178 Q 52 188 62 188 L 194 188 Q 204 188 204 178 L 204 110 Q 204 100 194 100 L 130 100 L 118 84 L 62 84 Q 52 84 52 94 Z" fill="#ffffff"/>
+    <path d="M 42 92 L 42 182 Q 42 194 54 194 L 202 194 Q 214 194 214 182 L 214 108 Q 214 96 202 96 L 122 96 L 108 78 L 54 78 Q 42 78 42 90 Z" fill="url(#folderGrad)"/>
   </g>
-  <path d="M 52 96 L 204 96 L 204 110 L 52 110 Z" fill="#DCEBFF" opacity="0.9"/>
+  <path d="M 42 92 L 214 92 L 214 108 L 42 108 Z" fill="#BFDDFB"/>
 </svg>

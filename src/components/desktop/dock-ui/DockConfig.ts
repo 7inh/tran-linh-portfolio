@@ -10,10 +10,10 @@ export const sizeMap = {
 } as const;
 
 export const dockBtnClass =
-  "group relative z-10 flex h-14 w-14 shrink-0 items-center justify-center overflow-visible border-0 bg-transparent p-0 leading-none outline-none transition-[width] duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:w-[5.75rem] active:scale-[0.92]";
+  "group relative z-10 flex h-14 w-14 shrink-0 items-center justify-center overflow-visible border-0 bg-transparent p-0 leading-none outline-none active:scale-[0.92]";
 
 export const dockIconMotion =
-  "block size-14 origin-bottom transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] will-change-transform group-hover:-translate-y-4 group-hover:scale-[1.65]";
+  "block size-14 origin-bottom transition-transform duration-150 ease-out will-change-transform";
 
 export const dockTooltipClass =
   "pointer-events-none absolute -top-12 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-full border border-white/10 bg-slate-900/90 px-3 py-1 text-[12px] font-medium leading-none tracking-tight text-white opacity-0 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100";
