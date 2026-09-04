@@ -38,7 +38,10 @@ export function AppGlyph({
   className?: string;
 }) {
   const { box, px } = sizeMap[size];
+  // Trash is raster artwork rather than a drawn SVG, and sits on the dock
+  // without a squircle tile behind it.
   const transparent = id === "trash";
+  const src = `/icons/${id}.${transparent ? "png" : "svg"}`;
 
   return (
     <div
@@ -51,7 +54,7 @@ export function AppGlyph({
       )}
     >
       <Image
-        src={`/icons/${id}.svg`}
+        src={src}
         alt=""
         width={px}
         height={px}

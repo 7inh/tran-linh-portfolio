@@ -43,14 +43,14 @@ export function DockContainer() {
   const utilitiesIndex = gamesIndex + 1;
   const trashIndex = utilitiesIndex + 2;
 
-  const { onMouseEnter, onMouseMove, onMouseLeave, getTransform, settling } =
+  // Tracking and release are handled on the window once entered, so the
+  // magnified icons drawn above the dock's own box don't count as leaving.
+  const { onMouseEnter, getTransform, settling } =
     useDockMagnification(slotWidths);
 
   return (
     <div
       onMouseEnter={onMouseEnter}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
       className={cn(
         "fixed bottom-2 left-1/2 z-[90] flex -translate-x-1/2 items-end gap-1.5 rounded-[22px] px-2 pb-3.5 pt-2",
         dockGlassPanel
