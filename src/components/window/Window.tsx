@@ -370,7 +370,7 @@ export function Window({ id, children }: WindowProps) {
     >
       <div
         className={cn(
-          "flex h-11 shrink-0 cursor-default items-center gap-3 border-b border-black/5 px-3 select-none dark:border-white/10",
+          "flex h-8 shrink-0 cursor-default items-center gap-2 border-b border-black/5 px-2.5 select-none dark:border-white/10",
           !isMobile && !win.maximized && "cursor-grab active:cursor-grabbing"
         )}
         onPointerDown={onPointerDownTitle}
@@ -386,7 +386,7 @@ export function Window({ id, children }: WindowProps) {
           <button
             type="button"
             aria-label="Close"
-            className="flex h-7 items-center rounded-full bg-black/5 px-2.5 text-[12px] font-medium text-foreground/90 dark:bg-white/10"
+            className="flex h-6 items-center rounded-full bg-black/5 px-2.5 text-[11px] font-medium text-foreground/90 dark:bg-white/10"
             onClick={() => closeApp(id)}
           >
             Done
@@ -402,7 +402,7 @@ export function Window({ id, children }: WindowProps) {
         )}
         <div
           className={cn(
-            "flex-1 truncate text-center text-[13px] font-medium tracking-tight",
+            "flex-1 truncate text-center text-[12px] font-medium tracking-tight",
             isFocused
               ? "text-foreground"
               : "text-muted-foreground"
