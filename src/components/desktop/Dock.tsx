@@ -15,6 +15,14 @@ const sizeMap = {
 
 export const squircleClip = "[clip-path:url(#app-icon-squircle)]";
 
+/**
+ * Icons drawn as free-standing artwork rather than a full-bleed tile — a bin,
+ * a folder. They are supplied as raster art, and must skip the squircle clip
+ * and the tile shadow, which would otherwise paint a square behind the
+ * transparent corners.
+ */
+const STANDALONE_ICONS = new Set<AppId>(["trash", "projects"]);
+
 const dockBtnClass =
   "group relative z-10 flex h-14 w-14 shrink-0 items-center justify-center overflow-visible border-0 bg-transparent p-0 leading-none outline-none transition-[width] duration-200 ease-out hover:w-[6.125rem] active:w-14";
 
@@ -38,9 +46,7 @@ export function AppGlyph({
   className?: string;
 }) {
   const { box, px } = sizeMap[size];
-  // Trash is raster artwork rather than a drawn SVG, and sits on the dock
-  // without a squircle tile behind it.
-  const transparent = id === "trash";
+  const transparent = STANDALONE_ICONS.has(id);
   const src = `/icons/${id}.${transparent ? "png" : "svg"}`;
 
   return (
