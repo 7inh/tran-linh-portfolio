@@ -17,7 +17,9 @@ export function DockContainer() {
   // Filter apps into categories
   const mainApps = apps.filter(
     (app) =>
-      !GAME_APP_IDS.includes(app.id as AppId) && !UTILITY_APP_IDS.includes(app.id as AppId)
+      app.id !== "trash" &&
+      !GAME_APP_IDS.includes(app.id as AppId) &&
+      !UTILITY_APP_IDS.includes(app.id as AppId)
   );
   const gameApps = apps.filter((app) => GAME_APP_IDS.includes(app.id as AppId));
   const utilityApps = apps.filter((app) => UTILITY_APP_IDS.includes(app.id as AppId));

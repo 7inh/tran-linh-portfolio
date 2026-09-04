@@ -91,7 +91,7 @@ export function DockFolder({
         />
 
         {/* Tooltip */}
-        <span className={dockTooltipClass}>{label}</span>
+        {!isOpen && <span className={dockTooltipClass}>{label}</span>}
       </button>
 
       {/* Dropdown menu */}
@@ -99,7 +99,7 @@ export function DockFolder({
         <div
           ref={menuRef}
           className={cn(
-            "absolute bottom-[calc(100%+14px)] left-1/2 z-40 -translate-x-1/2 animate-window-in rounded-[22px] p-3",
+            "absolute bottom-[calc(100%+14px)] left-1/2 z-40 min-w-[200px] -translate-x-1/2 animate-window-in rounded-[22px] p-3",
             dockGlassPanel
           )}
           role="menu"

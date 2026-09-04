@@ -19,7 +19,7 @@ export const dockTooltipClass =
   "pointer-events-none absolute -top-12 left-1/2 z-20 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-full border border-white/10 bg-slate-900/90 px-3 py-1 text-[12px] font-medium leading-none tracking-tight text-white opacity-0 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100";
 
 export const dockGlassPanel =
-  "relative isolate border border-white/45 bg-white/25 shadow-[0_16px_40px_-12px_rgba(15,23,42,0.5),inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.08] dark:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.08)]";
+  "isolate border border-white/45 bg-white/25 shadow-[0_16px_40px_-12px_rgba(15,23,42,0.5),inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.08] dark:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.65),inset_0_1px_0_0_rgba(255,255,255,0.08)]";
 
 export const squircleClip = "[clip-path:url(#app-icon-squircle)]";
 
