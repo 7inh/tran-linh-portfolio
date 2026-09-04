@@ -1,54 +1,63 @@
-<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="139 39 506 506">
   <defs>
-    <linearGradient id="tile" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#ECEEF1"/>
+    <!-- Cyan to Blue Gradient -->
+    <linearGradient id="cyanBlueGrad" x1="15%" y1="15%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#2FD3FF"/>
+      <stop offset="55%" stop-color="#0082FF"/>
+      <stop offset="100%" stop-color="#0051FF"/>
     </linearGradient>
 
-    <!-- Saturated at the outer end, clearing toward the centre, so each arm
-         reads as translucent glass rather than a flat block. -->
-    <linearGradient id="gUp" x1="50%" y1="100%" x2="50%" y2="0%">
-      <stop offset="0%" stop-color="#FFD770"/>
-      <stop offset="100%" stop-color="#F5A300"/>
-    </linearGradient>
-    <linearGradient id="gRight" x1="0%" y1="50%" x2="100%" y2="50%">
-      <stop offset="0%" stop-color="#FF9E97"/>
-      <stop offset="100%" stop-color="#EE2B22"/>
-    </linearGradient>
-    <linearGradient id="gDown" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#84E89A"/>
-      <stop offset="100%" stop-color="#0E9C45"/>
-    </linearGradient>
-    <linearGradient id="gLeft" x1="100%" y1="50%" x2="0%" y2="50%">
-      <stop offset="0%" stop-color="#8FC3FF"/>
-      <stop offset="100%" stop-color="#0A62DE"/>
+    <!-- Yellow Gradient -->
+    <linearGradient id="yellowGrad" x1="85%" y1="15%" x2="15%" y2="85%">
+      <stop offset="0%" stop-color="#FFEC00"/>
+      <stop offset="60%" stop-color="#FFC400"/>
+      <stop offset="100%" stop-color="#FF9100"/>
     </linearGradient>
 
-    <!-- Glass sheen laid over the top half of every arm. -->
-    <linearGradient id="sheen" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
-      <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.10"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    <!-- Vibrant Green Overlap Gradient -->
+    <linearGradient id="vibrantGreenGrad" x1="30%" y1="10%" x2="70%" y2="90%">
+      <stop offset="0%" stop-color="#72EC16"/>
+      <stop offset="50%" stop-color="#2ED147"/>
+      <stop offset="100%" stop-color="#00B050"/>
     </linearGradient>
 
-    <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#2A2F3A" flood-opacity="0.22"/>
-    </filter>
+    <!-- Purple Gradient -->
+    <linearGradient id="purpleGrad" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#9E3BFF"/>
+      <stop offset="60%" stop-color="#8000FF"/>
+      <stop offset="100%" stop-color="#6200EA"/>
+    </linearGradient>
+
+    <!-- Red / Pink Gradient -->
+    <linearGradient id="redPinkGrad" x1="25%" y1="15%" x2="75%" y2="85%">
+      <stop offset="0%" stop-color="#FF4D4D"/>
+      <stop offset="50%" stop-color="#FF1767"/>
+      <stop offset="100%" stop-color="#E0007A"/>
+    </linearGradient>
+
+    <!-- Clip Path for Cyan Circle -->
+    <clipPath id="cyanClip">
+      <circle cx="340" cy="240" r="145"/>
+    </clipPath>
   </defs>
 
-  <rect width="256" height="256" fill="url(#tile)"/>
+  <!-- Background: covers the cropped viewBox, not just the original canvas -->
+  <rect x="139" y="39" width="506" height="506" fill="#141416"/>
 
-  <g filter="url(#lift)" stroke-linejoin="round" stroke-width="9">
-    <path id="up"    d="M 100 40 L 156 40 L 156 90 L 128 118 L 100 90 Z"    fill="url(#gUp)"    stroke="url(#gUp)"/>
-    <path id="right" d="M 216 100 L 216 156 L 166 156 L 138 128 L 166 100 Z" fill="url(#gRight)" stroke="url(#gRight)"/>
-    <path id="down"  d="M 156 216 L 100 216 L 100 166 L 128 138 L 156 166 Z" fill="url(#gDown)"  stroke="url(#gDown)"/>
-    <path id="left"  d="M 40 156 L 40 100 L 90 100 L 118 128 L 90 156 Z"     fill="url(#gLeft)"  stroke="url(#gLeft)"/>
-  </g>
+  <g>
+    <!-- Cyan/Blue Base Circle -->
+    <circle cx="340" cy="240" r="145" fill="url(#cyanBlueGrad)"/>
 
-  <g stroke-linejoin="round" stroke-width="9" stroke="url(#sheen)" fill="url(#sheen)">
-    <use href="#up"/>
-    <use href="#right"/>
-    <use href="#down"/>
-    <use href="#left"/>
+    <!-- Yellow Circle -->
+    <circle cx="455" cy="215" r="130" fill="url(#yellowGrad)" opacity="0.88"/>
+
+    <!-- Luminous Green Intersection (Clipped to Cyan Circle) -->
+    <circle cx="455" cy="215" r="130" fill="url(#vibrantGreenGrad)" opacity="0.92" clip-path="url(#cyanClip)"/>
+
+    <!-- Purple Circle -->
+    <circle cx="355" cy="420" r="80" fill="url(#purpleGrad)" opacity="0.82"/>
+
+    <!-- Red/Pink Circle -->
+    <circle cx="465" cy="370" r="125" fill="url(#redPinkGrad)" opacity="0.88"/>
   </g>
 </svg>

@@ -16,13 +16,13 @@ const sizeMap = {
 export const squircleClip = "[clip-path:url(#app-icon-squircle)]";
 
 /** Icons supplied as raster artwork rather than drawn as SVG. */
-const RASTER_ICONS = new Set<AppId>(["trash", "projects", "notes"]);
+const RASTER_ICONS = new Set<AppId>(["trash", "projects"]);
 
 /**
  * Free-standing artwork rather than a full-bleed tile — a bin, a folder.
  * These skip the squircle clip and the tile shadow, which would otherwise
- * paint a square behind their transparent corners. Note this is a separate
- * question from the file format: Notes is raster too, but is a tile.
+ * paint a square behind their transparent corners. Kept separate from the
+ * format question above, since the two do not have to coincide.
  */
 const STANDALONE_ICONS = new Set<AppId>(["trash", "projects"]);
 
