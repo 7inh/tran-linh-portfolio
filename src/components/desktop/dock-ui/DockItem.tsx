@@ -7,6 +7,8 @@ import { AppGlyph } from "@/components/desktop/Dock";
 import {
   dockBtnClass,
   dockIconMotion,
+  dockIconSettle,
+  dockSlotSettle,
   dockTooltipClass,
   runningIndicatorClass,
 } from "./DockConfig";
@@ -20,6 +22,7 @@ export function DockItem({
   isBounce,
   onClick,
   transform,
+  settling,
 }: {
   id: AppId;
   label: string;
@@ -28,6 +31,7 @@ export function DockItem({
   isBounce: boolean;
   onClick: () => void;
   transform?: DockMagnifyTransform;
+  settling?: boolean;
 }) {
   const scale = transform?.scale ?? 1;
 
@@ -35,14 +39,18 @@ export function DockItem({
     <button
       type="button"
       onClick={onClick}
-      className={dockBtnClass}
+      className={cn(dockBtnClass, settling && dockSlotSettle)}
       aria-label={label}
       // The slot widens with the icon so neighbours are pushed aside
       // instead of being overlapped.
       style={{ width: DOCK_ICON_SIZE * scale }}
     >
       <div
-        className={cn(dockIconMotion, isBounce && "animate-dock-bounce")}
+        className={cn(
+          dockIconMotion,
+          settling && dockIconSettle,
+          isBounce && "animate-dock-bounce"
+        )}
         style={{ transform: `scale(${scale})` }}
       >
         <AppGlyph id={id} size="lg" className="size-full rounded-[14px]" />

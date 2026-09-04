@@ -43,11 +43,12 @@ export function DockContainer() {
   const utilitiesIndex = gamesIndex + 1;
   const trashIndex = utilitiesIndex + 2;
 
-  const { onMouseMove, onMouseLeave, getTransform } =
+  const { onMouseEnter, onMouseMove, onMouseLeave, getTransform, settling } =
     useDockMagnification(slotWidths);
 
   return (
     <div
+      onMouseEnter={onMouseEnter}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       className={cn(
@@ -66,6 +67,7 @@ export function DockContainer() {
           isBounce={bouncingId === app.id}
           onClick={() => openApp(app.id as AppId)}
           transform={getTransform(index)}
+          settling={settling}
         />
       ))}
 
@@ -79,6 +81,7 @@ export function DockContainer() {
         apps={gameApps.map((app) => ({ id: app.id as AppId, label: app.label }))}
         openApp={openApp}
         transform={getTransform(gamesIndex)}
+        settling={settling}
       />
 
       {/* Utilities folder */}
@@ -88,6 +91,7 @@ export function DockContainer() {
         apps={utilityApps.map((app) => ({ id: app.id as AppId, label: app.label }))}
         openApp={openApp}
         transform={getTransform(utilitiesIndex)}
+        settling={settling}
       />
 
       {/* Separator */}
@@ -103,6 +107,7 @@ export function DockContainer() {
           isBounce={bouncingId === trashApp.id}
           onClick={() => openApp(trashApp.id as AppId)}
           transform={getTransform(trashIndex)}
+          settling={settling}
         />
       )}
     </div>

@@ -10,11 +10,17 @@
  *
  * The dock is centre-anchored on screen, so its centre stays put no matter how
  * wide it grows, which is what makes the resting-space mapping stable.
+ *
+ * Motion is deliberately split in two: while the pointer is over the dock the
+ * icons track it directly with no CSS transition (a transition would restart
+ * every frame and lag), and a transition is switched on only for the two
+ * genuine jumps — entering and leaving — reported via `settling`.
  */
 "use client";
 
 import {
   useCallback,
+  useEffect,
   useRef,
   useState,
   type MouseEvent as ReactMouseEvent,
@@ -28,6 +34,8 @@ const MAX_SCALE = 1.6;
 const SIGMA = 68;
 /** Beyond this the effect is negligible; clamp to exactly 1 to settle. */
 const CUTOFF = 210;
+/** Matches the settle transition duration in DockConfig. */
+const SETTLE_MS = 200;
 
 export interface DockMagnifyTransform {
   scale: number;
@@ -42,13 +50,31 @@ type Pointer = { x: number; centerX: number };
  */
 export function useDockMagnification(slotWidths: number[]) {
   const [pointer, setPointer] = useState<Pointer | null>(null);
+  const [settling, setSettling] = useState(false);
   const rafRef = useRef<number | null>(null);
+  const settleRef = useRef<number | null>(null);
+
+  const beginSettle = useCallback(() => {
+    if (settleRef.current != null) window.clearTimeout(settleRef.current);
+    setSettling(true);
+    settleRef.current = window.setTimeout(() => setSettling(false), SETTLE_MS);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+      if (settleRef.current != null) window.clearTimeout(settleRef.current);
+    },
+    []
+  );
+
+  // Ease in from rest, then hand over to direct tracking.
+  const onMouseEnter = useCallback(() => beginSettle(), [beginSettle]);
 
   const onMouseMove = useCallback((e: ReactMouseEvent<HTMLElement>) => {
     const x = e.clientX;
     // Measured here, once per event, rather than per icon during render:
-    // reading layout while the width transition animates would force a
-    // style flush for every icon on every frame.
+    // reading layout during render would force a style flush per icon.
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
 
@@ -59,7 +85,8 @@ export function useDockMagnification(slotWidths: number[]) {
   const onMouseLeave = useCallback(() => {
     if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     setPointer(null);
-  }, []);
+    beginSettle();
+  }, [beginSettle]);
 
   // Resting centre of each slot, measured from the left edge of the content.
   const restingCenters: number[] = [];
@@ -83,5 +110,5 @@ export function useDockMagnification(slotWidths: number[]) {
     return { scale: 1 + (MAX_SCALE - 1) * falloff };
   };
 
-  return { onMouseMove, onMouseLeave, getTransform };
+  return { onMouseEnter, onMouseMove, onMouseLeave, getTransform, settling };
 }
