@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AboutApp } from "@/components/apps/AboutApp";
+import { BrowserApp } from "@/components/apps/BrowserApp";
 import { ContactApp } from "@/components/apps/ContactApp";
 import { DinoGameApp } from "@/components/apps/DinoGameApp";
 import { ExperienceApp } from "@/components/apps/ExperienceApp";
 import { MinesweeperApp } from "@/components/apps/MinesweeperApp";
 import { ProjectsApp } from "@/components/apps/ProjectsApp";
+import { QRCodeApp } from "@/components/apps/QRCodeApp";
 import { TrashApp } from "@/components/apps/TrashApp";
 import { Dock } from "@/components/desktop/Dock";
 import { MenuBar } from "@/components/desktop/MenuBar";
@@ -26,6 +28,8 @@ const appContent: Record<AppId, ReactNode> = {
   projects: <ProjectsApp />,
   experience: <ExperienceApp />,
   contact: <ContactApp />,
+  browser: <BrowserApp />,
+  qrcode: <QRCodeApp />,
   dino: <DinoGameApp />,
   minesweeper: <MinesweeperApp />,
   trash: <TrashApp />,

@@ -41,22 +41,86 @@ const SHARED = [
   "No text, no letters, no watermark.",
 ].join(" ");
 
+// Flat 2D glyph + Apple "Liquid Glass" (macOS Tahoe / iOS 26) material treatment —
+// distinct from SHARED's soft-3D layered-plate style. Used experimentally, one icon at a time.
+const SHARED_GLASS = [
+  "Modern macOS 'Liquid Glass' app icon (macOS Tahoe / iOS 26 design language), FLAT 2D vector glyph — NOT a 3D rendered object, no clay-like bevels, no embossed plates, no photoreal shading.",
+  "FULL-BLEED perfect square: color background covers every pixel including corners.",
+  "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte.",
+  "Hard square canvas (UI clips corners). Glyph MUST be optically centered both horizontally and vertically.",
+  "Glyph ~50% of canvas: ONE single bold flat silhouette shape in pearl #F8FAFC, simple and instantly recognizable at small size, minimal internal linework, no accent color inside the glyph, no gradient fill inside the glyph.",
+  "Liquid glass material: background is a smooth two-stop color gradient overlaid with a translucent frosted-glass plate — soft glass blur, a bright diagonal specular highlight streak crossing the upper third, a subtle glass edge glow, faint refraction distortion visible behind the glyph. Semi-transparent, luminous, like light passing through glass — not matte, not chalky.",
+  "No drop shadow on the glyph itself, no multi-color accents, no text, no letters, no watermark.",
+].join(" ");
+
 const ICONS = [
   {
     id: "about",
-    prompt: `${SHARED} Match the same layered soft-3D paper style as a modern folder/briefcase/envelope dock icon. Person/profile mark: head and shoulders as separate soft rounded plates (NOT a flat silhouette cutout). Pearl #F8FAFC primary plates plus SUBSTANTIAL mint #5EEAD4 accent regions (wide collar band AND shoulder plate or hair highlight — accent must be clearly visible, not a thin hairline). Soft drop shadow under the whole figure, rounded forms, soft inner layer shadows. Background ONLY deep teal → aqua (#0F766E → #22D3EE). Stay in teal/cyan family.`,
+    prompt: [
+      "Premium macOS app icon, modern creative minimal, polished soft lighting.",
+      "FULL-BLEED perfect square: single background only, no nested icons or layered plates.",
+      "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte, NO glass effects, NO icon-within-icon nesting, NO double backgrounds.",
+      "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
+      "Background: solid white #FFFFFF, full-bleed.",
+      "Centered colorful flower/rainbow petals design ~50% of canvas, sitting directly on the periwinkle background: 6 or more petals arranged in a circle around a central point, each petal a different vibrant color (red, orange, yellow, green, cyan, blue, purple, magenta), clean and bright, like a color wheel or flower. Simple flat design, no gradients within petals.",
+      "No text, no letters, no watermark.",
+    ].join(" "),
   },
   {
     id: "projects",
-    prompt: `${SHARED} Creative modern folder symbol: pearl #F8FAFC body with soft gold #FDE68A accent (tab or inner paper). Background ONLY amber → tangerine (#F59E0B → #EA580C). Do NOT use teal, cyan, green, blue, purple, or pink.`,
+    prompt: [
+      "Premium macOS app icon, modern creative minimal, polished soft lighting.",
+      "FULL-BLEED perfect square: background only, no nested icons or layered plates.",
+      "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte, NO glass effects, NO icon-within-icon nesting, NO double backgrounds.",
+      "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
+      "Background: light soft blue/gray (#C5D9F0), solid, fills the entire canvas including corners.",
+      "Centered blue folder silhouette ~55% of canvas: simple flat medium blue #5B9FD1 folder shape (closed folder, with simple tab at top-left), no separate tab/paper plates, sitting directly on the background.",
+      "Soft depth with subtle drop shadow under the folder.",
+      "No text, no letters, no watermark.",
+    ].join(" "),
   },
   {
     id: "experience",
-    prompt: `${SHARED} Creative modern briefcase symbol: pearl #F8FAFC body with soft lilac #C4B5FD accent (handle or latches). Background ONLY deep violet → indigo (#5B21B6 → #4338CA). Do NOT use teal, cyan, green, blue-gray, amber, or pink.`,
+    prompt: [
+      "Premium macOS app icon, modern creative minimal, polished soft lighting.",
+      "FULL-BLEED perfect square: solid dark gray background covers every pixel including corners, subtle radial highlight.",
+      "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte, NO glass effects.",
+      "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
+      "Centered terminal/console prompt symbol ~45% of canvas: simple flat white #FFFFFF symbol showing a greater-than sign > and an underscore _ (terminal cursor/command prompt), just clean white, minimal design.",
+      "Background ONLY dark charcoal → slate gray (#4A4A4A → #5A5A5A). Soft depth, subtle drop shadow under the symbol.",
+      "No text, no letters, no watermark.",
+    ].join(" "),
   },
   {
     id: "contact",
-    prompt: `${SHARED} Creative modern envelope symbol: pearl #F8FAFC body with soft blush #FDA4AF accent (flap or seal). Background ONLY rose → magenta (#F43F5E → #D946EF). Do NOT use teal, cyan, green, blue, amber, or violet.`,
+    prompt: [
+      "Premium macOS app icon, modern creative minimal, polished soft lighting.",
+      "FULL-BLEED perfect square: background only, no nested icons or layered plates.",
+      "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte, NO glass effects, NO icon-within-icon nesting.",
+      "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
+      "Background: vertical gradient from pale/light blue (#A9D0F5) at top to softer medium blue (#5B9FD1) at bottom, full-bleed.",
+      "Centered white closed envelope ~55% of canvas: simple flat white #FFFFFF envelope shape with a subtle gray/blue outline, no separate seal/flap plates, sitting directly on the blue background.",
+      "Soft depth with a subtle drop shadow under the envelope.",
+      "No text, no letters, no watermark.",
+    ].join(" "),
+  },
+  {
+    id: "browser",
+    prompt: [
+      "Premium macOS app icon, modern creative minimal, polished soft lighting.",
+      "FULL-BLEED perfect square: solid white background covers every pixel including corners, very subtle soft grey radial shading at edges only.",
+      "NO colored border, NO colored frame, NO rounded-rect chrome drawn in the image, NO padding matte.",
+      "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
+      "CRITICAL SIZE REQUIREMENT: the circular compass must be ENORMOUS and CROP-TIGHT against the canvas — its outer blue ring must almost touch all four edges of the square, leaving only a razor-thin ~2% margin (i.e. the ring diameter is ~96% of the canvas width, nearly edge-to-edge). This is NOT a small icon floating in empty white space — imagine a coin so large it barely fits inside a square picture frame, cropped right at its rim. Err on the side of TOO BIG rather than too small.",
+      "Circular compass face: thin vivid blue #2563EB outer ring bezel, bright white inner disc, fine grey radial tick marks around the edge,",
+      "a diamond-shaped compass needle pointing diagonally NE-SW: one half vivid red #EF4444, the other half vivid blue #2563EB, small dark navy center pivot dot.",
+      "Background ONLY plain white #FFFFFF, visible only as the thin margin around the compass ring. Soft depth, subtle drop shadow under the compass face.",
+      "No text, no letters, no watermark.",
+    ].join(" "),
+  },
+  {
+    id: "qrcode",
+    prompt: `${SHARED} Creative modern QR code symbol: pearl #F8FAFC body forming a stylized QR-code corner-square glyph (three rounded corner-finder squares with a few scattered small squares between them) with soft cyan #67E8F9 accent (one corner square or scattered dots). Background ONLY charcoal → near-black (#334155 → #0F172A). Do NOT use teal, blue, amber, violet, rose, lime, or green.`,
   },
   {
     id: "dino",
@@ -70,37 +134,29 @@ const ICONS = [
     id: "games",
     prompt: [
       "Premium macOS app icon, modern creative minimal, polished soft lighting.",
-      "FULL-BLEED perfect square: gradient background covers every pixel including corners.",
+      "FULL-BLEED perfect square: gradient background covers every pixel including corners, soft radial highlight top-left.",
       "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte.",
       "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
-      "IGNORE two-tone-only rule for buttons: gamepad BODY must be clean white/pearl #FFFFFF with soft gray shading;",
-      "buttons and sticks MUST be vividly colorful and high saturation (not white, not gray).",
-      "Centered soft-3D gamepad ~55% of canvas: white body,",
-      "face buttons neon hot-pink #FF2D55, neon yellow #FFE566, neon lime #39FF14, neon cyan #00E5FF;",
-      "bright orange D-pad #FF9F1C; sticks neon magenta #FF4D6D and neon turquoise #2EE6D6.",
-      "Background ONLY bright indigo → vivid sky blue (#818CF8 → #38BDF8).",
-      "Soft drop shadow under the gamepad. No text, no letters, no watermark.",
+      "Centered gamepad controller ~60% of canvas: simple rounded-rectangle body in pure white #FFFFFF, small plus-shaped D-pad cutout on the left, ONE single round button on the right (no cluster, just one), NO other colors on the glyph, no shading, no accent colors, NO gold or colored highlights.",
+      "Background ONLY purple → deep blue (#7C3AED → #2563EB). Soft depth, subtle drop shadow under the gamepad.",
+      "No text, no letters, no watermark.",
     ].join(" "),
   },
   {
     id: "utilities",
     prompt: [
       "Premium macOS app icon, modern creative minimal, polished soft lighting.",
-      "FULL-BLEED perfect square: gradient background covers every pixel including corners.",
-      "NO white border, NO white frame, NO rounded-rect chrome drawn in the image, NO padding matte.",
+      "FULL-BLEED perfect square: solid white background covers every pixel including corners, very subtle soft grey radial shading at edges only.",
+      "NO colored border, NO colored frame, NO rounded-rect chrome drawn in the image, NO padding matte, NO glass effects.",
       "Hard square canvas (UI clips corners). Symbol MUST be optically centered both horizontally and vertically.",
-      "IGNORE two-tone-only rule: wrench and accents MUST be vividly colorful and high saturation (not plain white).",
-      "Centered soft-3D crossed tools ~55% of canvas: stylized wrench and screwdriver/gear combo,",
-      "wrench body neon amber #FBBF24 with hot coral #FB7185 handle accents,",
-      "screwdriver/gear neon cyan #22D3EE and vivid violet #A78BFA accents,",
-      "soft layered depth, rounded forms, soft drop shadow under the tools.",
-      "Background ONLY soft grey → steel grey (#94A3B8 → #475569). Do NOT use purple, pink, blue, teal, amber, or green in the background.",
-      "No text, no letters, no watermark. Do NOT use flat monochrome white silhouette.",
+      "Centered crossed tools ~80% of canvas: simple flat gray #94A3B8 silhouette of a wrench and screwdriver crossed in an X, no separate colored pieces, no accent colors, just clean gray.",
+      "Background ONLY plain white #FFFFFF. Soft depth, subtle drop shadow under the tools.",
+      "No text, no letters, no watermark.",
     ].join(" "),
   },
   {
     id: "trash",
-    prompt: `${SHARED} Creative modern wastebasket / trash can symbol ONLY on a fully TRANSPARENT background (no square plate, no gradient fill behind the can). Pearl #F8FAFC body with soft gray #94A3B8 accent (lid rim or handle). Soft drop shadow under the can only. Isolated object, centered. Do NOT draw any background shape or color field.`,
+    prompt: `Modern macOS 'Liquid Glass' trash-bin icon (macOS Tahoe design language), FLAT 2D silhouette of a wastebasket — NOT a 3D rendered object, minimal internal detail (just a lid line and a couple of vertical rib lines). Translucent frosted-glass material: pearl #F8FAFC glass tone with a soft diagonal specular highlight streak and a subtle edge glow, semi-transparent as if made of glass. ONLY on a fully TRANSPARENT background (no square plate, no gradient fill behind the can, no other shapes). Soft drop shadow beneath the bin only. Isolated object, centered. No text, no letters, no watermark.`,
   },
 ];
 

@@ -3,10 +3,10 @@
 export function Wallpaper() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute inset-0 bg-[linear-gradient(165deg,#7eb8d8_0%,#a8d4e8_28%,#c5e4ef_52%,#8ec5c0_78%,#6ba8b8_100%)] dark:bg-[linear-gradient(165deg,#0b1220_0%,#152238_32%,#1a2f45_58%,#0f2438_100%)]" />
-      <div className="absolute -left-[20%] top-[-10%] h-[70%] w-[70%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.55)_0%,transparent_68%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(80,120,180,0.28)_0%,transparent_68%)]" />
-      <div className="absolute right-[-15%] top-[15%] h-[55%] w-[55%] rounded-full bg-[radial-gradient(circle,rgba(120,190,200,0.45)_0%,transparent_70%)] blur-3xl dark:bg-[radial-gradient(circle,rgba(60,100,160,0.22)_0%,transparent_70%)]" />
-      <div className="absolute bottom-[-20%] left-[20%] h-[60%] w-[70%] rounded-full bg-[radial-gradient(circle,rgba(90,140,170,0.35)_0%,transparent_65%)] blur-3xl dark:bg-[radial-gradient(circle,rgba(40,70,110,0.28)_0%,transparent_65%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(165deg,#6fa3d8_0%,#9cc4e8_28%,#cfe1f5_52%,#6f97cc_78%,#4a74b0_100%)] dark:bg-[linear-gradient(165deg,#0a1628_0%,#122544_32%,#173a52_58%,#0d2140_100%)]" />
+      <div className="absolute -left-[20%] top-[-10%] h-[70%] w-[70%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.55)_0%,transparent_68%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(90,140,210,0.3)_0%,transparent_68%)]" />
+      <div className="absolute right-[-15%] top-[15%] h-[55%] w-[55%] rounded-full bg-[radial-gradient(circle,rgba(110,160,220,0.45)_0%,transparent_70%)] blur-3xl dark:bg-[radial-gradient(circle,rgba(70,110,190,0.24)_0%,transparent_70%)]" />
+      <div className="absolute bottom-[-20%] left-[20%] h-[60%] w-[70%] rounded-full bg-[radial-gradient(circle,rgba(80,120,190,0.35)_0%,transparent_65%)] blur-3xl dark:bg-[radial-gradient(circle,rgba(40,80,140,0.3)_0%,transparent_65%)]" />
       <div
         className="absolute inset-0 opacity-[0.07] mix-blend-overlay dark:opacity-[0.12]"
         style={{

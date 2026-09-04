@@ -3,11 +3,14 @@ export type AppId =
   | "projects"
   | "experience"
   | "contact"
+  | "browser"
+  | "qrcode"
   | "dino"
   | "minesweeper"
   | "trash";
 
 export const GAME_APP_IDS: AppId[] = ["dino", "minesweeper"];
+export const UTILITY_APP_IDS: AppId[] = ["qrcode"];
 
 export const profile = {
   name: "Tran Linh",
@@ -286,6 +289,18 @@ export const apps: {
     defaultSize: { width: 420, height: 420 },
   },
   {
+    id: "browser",
+    title: "Browser",
+    label: "Browser",
+    defaultSize: { width: 760, height: 560 },
+  },
+  {
+    id: "qrcode",
+    title: "QR Code Generator",
+    label: "QR Code",
+    defaultSize: { width: 380, height: 480 },
+  },
+  {
     id: "dino",
     title: "Dinosaur Game",
     label: "Dinosaur Game",
@@ -322,29 +337,5 @@ export const trashItems: TrashItem[] = [
     size: "4.2 MB",
     href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
-  },
-];
-
-export type UtilityLink = {
-  id: string;
-  label: string;
-  href: string;
-};
-
-export const utilityLinks: UtilityLink[] = [
-  {
-    id: "print-photo-service",
-    label: "Print Photo Service",
-    href: "https://app.noirolab.com/",
-  },
-  {
-    id: "chat-mockup",
-    label: "Chat Mockup",
-    href: "https://chat-mockup-henna.vercel.app/",
-  },
-  {
-    id: "polite-message-rewriter",
-    label: "Polite Message Rewriter",
-    href: "https://polite-message-rewriter.vercel.app/",
   },
 ];

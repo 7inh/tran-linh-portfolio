@@ -50,14 +50,14 @@ export function MenuBar() {
     focusedId && windows[focusedId]?.open && !windows[focusedId]?.minimized;
 
   return (
-    <header className="absolute inset-x-0 top-0 z-[100] flex h-7 items-center justify-between bg-white/35 px-3 text-[12px] text-slate-900 shadow-[0_0.5px_0_rgba(255,255,255,0.4)] backdrop-blur-xl dark:bg-black/45 dark:text-white dark:shadow-[0_0.5px_0_rgba(255,255,255,0.08)]">
+    <header className="absolute inset-x-0 top-0 z-[100] flex h-7 items-center justify-between bg-white/35 px-3 text-[12px] text-foreground shadow-[0_0.5px_0_rgba(255,255,255,0.4)] backdrop-blur-xl dark:bg-black/45 dark:shadow-[0_0.5px_0_rgba(255,255,255,0.08)]">
       <div className="flex min-w-0 items-center gap-3">
         <span className="font-[family-name:var(--font-display)] text-[13px] font-semibold tracking-tight">
           {profile.name}
         </span>
         <span
           className={cn(
-            "truncate font-medium text-slate-700/90 transition-opacity dark:text-white/75",
+            "truncate font-medium text-foreground/75 transition-opacity",
             focusedOpen ? "opacity-100" : "opacity-0"
           )}
         >
@@ -81,7 +81,7 @@ export function MenuBar() {
           <ControlCenterIcon className="size-3.5" />
         </button>
         <time
-          className="tabular-nums text-slate-800/90 dark:text-white/85"
+          className="tabular-nums text-foreground/85"
           dateTime={now?.toISOString()}
         >
           {now ? formatClock(now) : "\u00a0"}

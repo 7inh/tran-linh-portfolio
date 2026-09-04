@@ -67,7 +67,7 @@ export function ControlCenter({
       role="dialog"
       aria-label="Control Center"
       className={cn(
-        "absolute right-2 top-9 z-[120] w-[min(320px,calc(100vw-1rem))] rounded-2xl border border-white/50 bg-white/90 p-3 text-slate-900 shadow-[0_12px_40px_rgba(15,40,70,0.28)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/90 dark:text-white",
+        "absolute right-2 top-9 z-[120] w-[min(320px,calc(100vw-1rem))] rounded-2xl border border-glass-border/50 bg-glass/90 p-3 text-foreground shadow-[0_12px_40px_var(--glass-shadow)] backdrop-blur-2xl dark:border-glass-border/10 dark:bg-glass/90",
         className
       )}
     >
@@ -77,8 +77,8 @@ export function ControlCenter({
         className={cn(
           "flex w-full items-center gap-3 rounded-2xl border border-white/40 px-3 py-3 text-left transition",
             dark
-            ? "bg-zinc-800/90 text-white dark:border-white/10"
-            : "border-slate-200/70 bg-white text-slate-900"
+            ? "bg-glass/90 text-foreground border-glass-border/10"
+            : "border-border bg-white text-foreground"
         )}
         aria-pressed={dark}
       >
@@ -96,9 +96,9 @@ export function ControlCenter({
         </span>
       </button>
 
-      <div className="mt-2 rounded-2xl border border-slate-200/70 bg-white p-3 text-slate-900 dark:border-white/10 dark:bg-zinc-800/80 dark:text-white">
+      <div className="mt-2 rounded-2xl border border-border bg-white p-3 text-foreground dark:border-glass-border/10 dark:bg-glass/80">
         <div className="flex items-center gap-3">
-          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-400 to-sky-400 text-[11px] font-semibold text-white shadow-sm">
+          <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/70 text-[11px] font-semibold text-primary-foreground shadow-sm">
             ♪
           </div>
           <div className="min-w-0 flex-1">
@@ -108,7 +108,7 @@ export function ControlCenter({
           <button
             type="button"
             onClick={toggle}
-            className="flex size-9 items-center justify-center rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+            className="flex size-9 items-center justify-center rounded-full bg-foreground text-background"
             aria-label={playing ? "Pause" : "Play"}
           >
             {playing ? (
@@ -127,7 +127,7 @@ export function ControlCenter({
             step={0.1}
             value={currentTime}
             onChange={(e) => seek(Number(e.target.value))}
-            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-slate-300/80 accent-slate-900 dark:bg-zinc-600 dark:accent-white"
+            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-slate-300/80 accent-foreground dark:bg-zinc-600"
             aria-label="Seek"
             style={{
               background: `linear-gradient(to right, currentColor ${progress}%, rgba(148,163,184,0.45) ${progress}%)`,
@@ -148,7 +148,7 @@ export function ControlCenter({
             step={0.01}
             value={volume}
             onChange={(e) => setVolume(Number(e.target.value))}
-            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-slate-300/80 accent-slate-900 dark:bg-zinc-600 dark:accent-white"
+            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-slate-300/80 accent-foreground dark:bg-zinc-600"
             aria-label="Volume"
           />
         </div>

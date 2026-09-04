@@ -2,15 +2,17 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
-import { Battery, Globe, Signal, Wifi, X } from "lucide-react";
+import { Battery, Signal, Wifi, X } from "lucide-react";
 import { AboutApp } from "@/components/apps/AboutApp";
+import { BrowserApp } from "@/components/apps/BrowserApp";
 import { ContactApp } from "@/components/apps/ContactApp";
 import { DinoGameApp } from "@/components/apps/DinoGameApp";
 import { ExperienceApp } from "@/components/apps/ExperienceApp";
 import { MinesweeperApp } from "@/components/apps/MinesweeperApp";
 import { ProjectsApp } from "@/components/apps/ProjectsApp";
+import { QRCodeApp } from "@/components/apps/QRCodeApp";
 import { TrashApp } from "@/components/apps/TrashApp";
-import { AppGlyph } from "@/components/desktop/Dock";
+import { AppGlyph, squircleClip } from "@/components/desktop/Dock";
 import { ControlCenter } from "@/components/desktop/ControlCenter";
 import { Wallpaper } from "@/components/desktop/Wallpaper";
 import { AboutMeWidget } from "@/components/mobile/AboutMeWidget";
@@ -19,7 +21,7 @@ import { useWindowManager } from "@/components/window/WindowManagerContext";
 import {
   apps,
   GAME_APP_IDS,
-  utilityLinks,
+  UTILITY_APP_IDS,
   type AppId,
 } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
@@ -29,13 +31,15 @@ const appContent: Record<AppId, ReactNode> = {
   projects: <ProjectsApp />,
   experience: <ExperienceApp />,
   contact: <ContactApp />,
+  browser: <BrowserApp />,
+  qrcode: <QRCodeApp />,
   dino: <DinoGameApp />,
   minesweeper: <MinesweeperApp />,
   trash: <TrashApp />,
 };
 
 const DOCK_APP_IDS: AppId[] = ["about", "projects", "experience", "contact"];
-const GRID_APP_IDS: AppId[] = ["trash"];
+const GRID_APP_IDS: AppId[] = ["trash", "browser"];
 
 type FolderId = "games" | "utilities" | null;
 
@@ -48,7 +52,12 @@ function formatTime(date: Date) {
 
 function FolderGlyph({ src, label }: { src: string; label: string }) {
   return (
-    <div className="relative size-[3.75rem] overflow-hidden rounded-[1.1rem] shadow-sm shadow-black/25">
+    <div
+      className={cn(
+        "relative size-[3.75rem] overflow-hidden shadow-sm shadow-black/25",
+        squircleClip
+      )}
+    >
       <Image
         src={src}
         alt=""
@@ -131,6 +140,7 @@ export function MobileShell() {
 
   const appOpen = Boolean(activeAppId);
   const gameApps = apps.filter((a) => GAME_APP_IDS.includes(a.id));
+  const utilityApps = apps.filter((a) => UTILITY_APP_IDS.includes(a.id));
 
   const goHome = () => {
     setFolder(null);
@@ -251,7 +261,7 @@ export function MobileShell() {
           onClick={() => setFolder(null)}
         >
           <div
-            className="mx-auto w-full max-w-sm rounded-3xl border border-white/25 bg-white/20 p-4 shadow-xl backdrop-blur-2xl dark:bg-zinc-900/50"
+            className="mx-auto w-full max-w-sm rounded-3xl border border-glass-border/25 bg-glass/20 p-4 shadow-xl backdrop-blur-2xl dark:bg-glass/50"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-3 flex items-center justify-between">
@@ -286,18 +296,20 @@ export function MobileShell() {
                   </HomeIconButton>
                 ))}
               {folder === "utilities" &&
-                utilityLinks.map((link) => (
+                utilityApps.map((app) => (
                   <HomeIconButton
-                    key={link.id}
-                    label={link.label}
+                    key={app.id}
+                    label={app.label}
                     onClick={() => {
-                      window.open(link.href, "_blank", "noopener,noreferrer");
                       setFolder(null);
+                      openApp(app.id);
                     }}
                   >
-                    <span className="flex size-[3.75rem] items-center justify-center rounded-[1.1rem] bg-gradient-to-br from-sky-400 to-teal-600 text-white shadow-sm shadow-black/25">
-                      <Globe className="size-7" strokeWidth={2.25} />
-                    </span>
+                    <AppGlyph
+                      id={app.id}
+                      size="xl"
+                      className="size-[3.75rem] rounded-[1.1rem]"
+                    />
                   </HomeIconButton>
                 ))}
             </div>

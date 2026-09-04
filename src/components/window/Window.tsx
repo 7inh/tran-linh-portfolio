@@ -350,7 +350,7 @@ export function Window({ id, children }: WindowProps) {
       aria-label={meta.title}
       aria-hidden={win.minimized}
       className={cn(
-        "absolute flex flex-col overflow-hidden border border-white/50 bg-white/85 shadow-[0_18px_50px_rgba(15,40,70,0.28)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/90 dark:shadow-[0_18px_50px_rgba(0,0,0,0.5)]",
+        "absolute flex flex-col overflow-hidden border border-glass-border/50 bg-glass/85 shadow-[0_18px_50px_var(--glass-shadow)] backdrop-blur-2xl dark:border-glass-border/10 dark:bg-glass/90",
         isMobile ? "rounded-none border-x-0 border-t-0" : "rounded-xl",
         "transition-[opacity,transform] duration-200 ease-out",
         win.minimized
@@ -386,7 +386,7 @@ export function Window({ id, children }: WindowProps) {
           <button
             type="button"
             aria-label="Close"
-            className="flex h-7 items-center rounded-full bg-black/5 px-2.5 text-[12px] font-medium text-slate-700 dark:bg-white/10 dark:text-white/90"
+            className="flex h-7 items-center rounded-full bg-black/5 px-2.5 text-[12px] font-medium text-foreground/90 dark:bg-white/10"
             onClick={() => closeApp(id)}
           >
             Done
@@ -404,8 +404,8 @@ export function Window({ id, children }: WindowProps) {
           className={cn(
             "flex-1 truncate text-center text-[13px] font-medium tracking-tight",
             isFocused
-              ? "text-slate-800 dark:text-white"
-              : "text-slate-500 dark:text-white/50"
+              ? "text-foreground"
+              : "text-muted-foreground"
           )}
         >
           {meta.title}
@@ -414,7 +414,7 @@ export function Window({ id, children }: WindowProps) {
       </div>
       <div
         className={cn(
-          "min-h-0 flex-1 overflow-hidden bg-transparent dark:bg-zinc-950/40",
+          "min-h-0 flex-1 overflow-hidden bg-transparent dark:bg-glass/40",
           isMobile && "pb-8"
         )}
       >

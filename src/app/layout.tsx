@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Source_Sans_3 } from "next/font/google";
+import { SquircleDefs } from "@/components/icons/SquircleDefs";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -26,7 +27,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${outfit.variable} ${sourceSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full overflow-hidden font-sans">{children}</body>
+      <body className="min-h-full overflow-hidden font-sans">
+        <SquircleDefs />
+        {children}
+      </body>
     </html>
   );
 }

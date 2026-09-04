@@ -48,15 +48,15 @@ export function ContactApp() {
   return (
     <div className="flex h-full flex-col justify-between p-4 pb-10 sm:p-5 sm:pb-6">
       <div className="min-w-0">
-        <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-foreground">
           Let’s connect
         </h2>
-        <p className="mt-2 text-[13.5px] leading-relaxed text-slate-600 dark:text-zinc-300">
+        <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/75">
           Open to fullstack roles, AI product work, and thoughtful collaborations.
         </p>
 
-        <div className="mt-5 flex items-center gap-2 text-[13px] text-slate-600 dark:text-zinc-300">
-          <MapPin className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-300" />
+        <div className="mt-5 flex items-center gap-2 text-[13px] text-foreground/75">
+          <MapPin className="h-4 w-4 shrink-0 text-primary" />
           <span className="min-w-0">{profile.contact.location}</span>
         </div>
 
@@ -66,7 +66,7 @@ export function ContactApp() {
             return (
               <li
                 key={link.label}
-                className="flex min-w-0 items-stretch gap-1.5 rounded-xl border border-slate-200/80 bg-white/70 p-1.5 transition hover:border-teal-300 hover:bg-teal-50/40 dark:border-white/10 dark:bg-zinc-800/70 dark:hover:border-teal-400/40 dark:hover:bg-teal-950/40"
+                className="flex min-w-0 items-stretch gap-1.5 rounded-xl border border-border bg-card/70 p-1.5 transition hover:border-accent-foreground/30 hover:bg-accent dark:bg-glass/70"
               >
                 <a
                   href={link.href}
@@ -78,14 +78,14 @@ export function ContactApp() {
                   }
                   className="flex min-w-0 flex-1 items-center gap-3 rounded-lg px-2 py-1.5"
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-sky-400 to-teal-600 text-white">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/70 text-primary-foreground">
                     <link.icon className="h-4 w-4" />
                   </span>
                   <span className="min-w-0">
-                    <span className="block text-[11px] font-medium uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                    <span className="block text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                       {link.label}
                     </span>
-                    <span className="block truncate text-[13px] font-medium text-slate-800 dark:text-zinc-100">
+                    <span className="block truncate text-[13px] font-medium text-foreground">
                       {link.value}
                     </span>
                   </span>
@@ -94,11 +94,11 @@ export function ContactApp() {
                   type="button"
                   aria-label={`Copy ${link.label}`}
                   title={isCopied ? "Copied" : "Copy"}
-                  className="flex h-auto w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-800 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+                  className="flex h-auto w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"
                   onClick={() => copyValue(link.label, link.copyValue)}
                 >
                   {isCopied ? (
-                    <Check className="h-4 w-4 text-teal-600 dark:text-teal-300" />
+                    <Check className="h-4 w-4 text-primary" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}
@@ -111,10 +111,7 @@ export function ContactApp() {
 
       <a
         href={`mailto:${profile.contact.email}`}
-        className={cn(
-          buttonVariants({ size: "lg" }),
-          "mt-6 w-full rounded-xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-zinc-200"
-        )}
+        className={cn(buttonVariants({ size: "lg" }), "mt-6 w-full rounded-xl")}
       >
         Send an email
       </a>

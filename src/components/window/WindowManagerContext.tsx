@@ -57,7 +57,7 @@ function createInitialWindows(): Record<AppId, WindowState> {
       id: app.id,
       open: app.id === "about",
       minimized: false,
-      maximized: false,
+      maximized: app.id === "browser",
       zIndex: app.id === "about" ? 30 : 10 + index,
       position: defaultPosition(app.id, index),
       size: { ...app.defaultSize },
