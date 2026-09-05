@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Battery, Signal, Wifi, X } from "lucide-react";
 import { AboutApp } from "@/components/apps/AboutApp";
 import { BrowserApp } from "@/components/apps/BrowserApp";
+import { BrowserProvider } from "@/components/apps/browser/BrowserContext";
+import { BrowserToolbar } from "@/components/apps/browser/BrowserToolbar";
 import { ContactApp } from "@/components/apps/ContactApp";
 import { DinoGameApp } from "@/components/apps/DinoGameApp";
 import { ExperienceApp } from "@/components/apps/ExperienceApp";
@@ -27,12 +29,14 @@ import {
 } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
-const appContent: Record<AppId, ReactNode> = {
+// "browser" is deliberately absent — its toolbar and content need to share a
+// BrowserProvider, so it's rendered as its own block rather than through this
+// generic per-id map (see the JSX below).
+const appContent: Partial<Record<AppId, ReactNode>> = {
   about: <AboutApp />,
   projects: <ProjectsApp />,
   experience: <ExperienceApp />,
   contact: <ContactApp />,
-  browser: <BrowserApp />,
   notes: <NotesApp />,
   qrcode: <QRCodeApp />,
   dino: <DinoGameApp />,
@@ -325,6 +329,20 @@ export function MobileShell() {
           {appContent[id]}
         </Window>
       ))}
+      <BrowserProvider>
+        <Window id="browser">
+          <div className="flex h-full min-h-0 flex-col">
+            <BrowserToolbar />
+            {/* BrowserApp's own root is h-full, so it needs a sized flex-1
+                parent slot here — Window's content wrapper already gives it
+                one when there's no sibling toolbar to share space with, but
+                that's not the case on this, the mobile, layout. */}
+            <div className="min-h-0 flex-1">
+              <BrowserApp />
+            </div>
+          </div>
+        </Window>
+      </BrowserProvider>
 
       {/* Home indicator — only when an app is open */}
       {appOpen && (

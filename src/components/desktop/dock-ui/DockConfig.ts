@@ -11,11 +11,10 @@ export const sizeMap = {
 
 /**
  * Width is set inline per-frame by magnification, so no fixed w-* here, and
- * deliberately no transition either: while the pointer is over the dock the
- * target changes every frame, and a transition would restart each time,
- * never getting past the head of its own easing curve — which reads as lag.
- * Tracking the pointer directly at 60fps is what feels smooth. The settle
- * classes below are layered on only for the enter/leave jumps.
+ * deliberately no transition either — not even for arrival. A transition
+ * retargets mid-flight on every pointer move and restarts, so it never leaves
+ * the head of its easing curve, which reads as lag. useDockMagnification
+ * animates the ramp-in itself and hands down finished per-frame values.
  */
 export const dockBtnClass =
   "group relative z-10 flex h-14 shrink-0 items-end justify-center overflow-visible border-0 bg-transparent p-0 leading-none outline-none";
@@ -26,10 +25,6 @@ export const dockIconMotion =
 /** Sits above the magnified icon; `bottom` is set inline from the scale. */
 export const dockTooltipClass =
   "pointer-events-none absolute left-1/2 z-30 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-black/55 px-2.5 py-1 text-[12px] font-medium leading-none tracking-tight text-white opacity-0 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-md transition-opacity duration-150 ease-out group-hover:opacity-100";
-
-/** Applied only while easing in/out of magnification, never while tracking. */
-export const dockSlotSettle = "transition-[width] duration-200 ease-out";
-export const dockIconSettle = "transition-transform duration-200 ease-out";
 
 export const dockGlassPanel =
   "isolate border border-white/50 bg-white/30 shadow-[0_14px_36px_-10px_rgba(15,23,42,0.5),inset_0_1px_0_0_rgba(255,255,255,0.7)] backdrop-blur-2xl dark:border-white/15 dark:bg-black/30 dark:shadow-[0_14px_36px_-10px_rgba(0,0,0,0.7),inset_0_1px_0_0_rgba(255,255,255,0.12)]";

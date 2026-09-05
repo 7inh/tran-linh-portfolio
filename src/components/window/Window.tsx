@@ -9,6 +9,11 @@ import { useWindowManager } from "./WindowManagerContext";
 type WindowProps = {
   id: AppId;
   children: ReactNode;
+  /** Replaces the centered title with custom content in the title bar, next
+   * to the traffic lights (e.g. the Browser app's nav toolbar). Elements
+   * inside it must carry `data-toolbar` to be excluded from window-drag and
+   * maximize-toggle, the same way traffic lights carry `data-traffic`. */
+  titleBar?: ReactNode;
 };
 
 type ResizeEdge = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
@@ -147,7 +152,7 @@ function TrafficLights({
   );
 }
 
-export function Window({ id, children }: WindowProps) {
+export function Window({ id, children, titleBar }: WindowProps) {
   const {
     windows,
     focusedId,
@@ -184,7 +189,7 @@ export function Window({ id, children }: WindowProps) {
   const onPointerDownTitle = useCallback(
     (e: React.PointerEvent) => {
       if (isMobile || win.maximized) return;
-      if ((e.target as HTMLElement).closest("[data-traffic]")) return;
+      if ((e.target as HTMLElement).closest("[data-traffic],[data-toolbar]")) return;
       focusApp(id);
       dragRef.current = {
         startX: e.clientX,
@@ -378,7 +383,7 @@ export function Window({ id, children }: WindowProps) {
         onPointerUp={onPointerUp}
         onDoubleClick={(e) => {
           if (isMobile) return;
-          if ((e.target as HTMLElement).closest("[data-traffic]")) return;
+          if ((e.target as HTMLElement).closest("[data-traffic],[data-toolbar]")) return;
           toggleMaximize(id);
         }}
       >
@@ -400,17 +405,23 @@ export function Window({ id, children }: WindowProps) {
             onZoom={() => toggleMaximize(id)}
           />
         )}
-        <div
-          className={cn(
-            "flex-1 truncate text-center text-[12px] font-medium tracking-tight",
-            isFocused
-              ? "text-foreground"
-              : "text-muted-foreground"
-          )}
-        >
-          {meta.title}
-        </div>
-        <div className={cn(isMobile ? "w-[52px]" : "w-[58px]")} aria-hidden />
+        {titleBar ?? (
+          <div
+            className={cn(
+              "flex-1 truncate text-center text-[12px] font-medium tracking-tight",
+              isFocused
+                ? "text-foreground"
+                : "text-muted-foreground"
+            )}
+          >
+            {meta.title}
+          </div>
+        )}
+        {/* Only the plain centered title needs a balancing spacer; a custom
+            titleBar is meant to fill the remaining width instead. */}
+        {!titleBar && (
+          <div className={cn(isMobile ? "w-[52px]" : "w-[58px]")} aria-hidden />
+        )}
       </div>
       <div
         className={cn(

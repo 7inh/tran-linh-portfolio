@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AboutApp } from "@/components/apps/AboutApp";
 import { BrowserApp } from "@/components/apps/BrowserApp";
+import { BrowserProvider } from "@/components/apps/browser/BrowserContext";
+import { BrowserToolbar } from "@/components/apps/browser/BrowserToolbar";
 import { ContactApp } from "@/components/apps/ContactApp";
 import { DinoGameApp } from "@/components/apps/DinoGameApp";
 import { ExperienceApp } from "@/components/apps/ExperienceApp";
@@ -25,12 +27,14 @@ import {
 } from "@/components/window/WindowManagerContext";
 import type { AppId } from "@/data/portfolio";
 
-const appContent: Record<AppId, ReactNode> = {
+// "browser" is deliberately absent — it needs a BrowserProvider wrapping both
+// its window titleBar and its content, so it's rendered as its own block
+// below rather than through this generic per-id map.
+const appContent: Partial<Record<AppId, ReactNode>> = {
   about: <AboutApp />,
   projects: <ProjectsApp />,
   experience: <ExperienceApp />,
   contact: <ContactApp />,
-  browser: <BrowserApp />,
   notes: <NotesApp />,
   qrcode: <QRCodeApp />,
   dino: <DinoGameApp />,
@@ -63,19 +67,30 @@ function isEditableTarget(target: EventTarget | null) {
 }
 
 function DesktopCanvas() {
-  const { focusedId, windows, closeApp } = useWindowManager();
+  const { focusedId, windows, closeApp, minimizeApp } = useWindowManager();
   const focusedIdRef = useRef(focusedId);
   const windowsRef = useRef(windows);
   const closeAppRef = useRef(closeApp);
+  const minimizeAppRef = useRef(minimizeApp);
 
-  focusedIdRef.current = focusedId;
-  windowsRef.current = windows;
-  closeAppRef.current = closeApp;
+  // Kept fresh in an effect rather than during render: the shortcut handler is
+  // bound once and only reads these from an event, which is always after the
+  // latest commit.
+  useEffect(() => {
+    focusedIdRef.current = focusedId;
+    windowsRef.current = windows;
+    closeAppRef.current = closeApp;
+    minimizeAppRef.current = minimizeApp;
+  });
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      const isW = e.code === "KeyW" || e.key.toLowerCase() === "w";
-      if (!(e.ctrlKey || e.metaKey) || !isW || e.altKey || e.shiftKey) return;
+      // The menu bar advertises ⌘W and ⌘M, so both have to actually work.
+      const key = e.key.toLowerCase();
+      const isW = e.code === "KeyW" || key === "w";
+      const isM = e.code === "KeyM" || key === "m";
+      if (!(e.ctrlKey || e.metaKey) || e.altKey || e.shiftKey) return;
+      if (!isW && !isM) return;
       if (isEditableTarget(e.target)) return;
 
       e.preventDefault();
@@ -86,7 +101,8 @@ function DesktopCanvas() {
       if (!id) return;
       const win = windowsRef.current[id];
       if (!win?.open || win.minimized) return;
-      closeAppRef.current(id);
+      if (isW) closeAppRef.current(id);
+      else minimizeAppRef.current(id);
     };
 
     window.addEventListener("keydown", onKeyDown, { capture: true });
@@ -104,6 +120,11 @@ function DesktopCanvas() {
           {appContent[id]}
         </Window>
       ))}
+      <BrowserProvider>
+        <Window id="browser" titleBar={<BrowserToolbar inTitleBar />}>
+          <BrowserApp />
+        </Window>
+      </BrowserProvider>
       <DockContainer />
     </div>
   );

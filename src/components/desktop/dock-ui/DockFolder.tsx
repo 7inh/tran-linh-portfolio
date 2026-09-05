@@ -10,8 +10,6 @@ import { AppGlyph } from "@/components/desktop/Dock";
 import {
   dockBtnClass,
   dockIconMotion,
-  dockIconSettle,
-  dockSlotSettle,
   dockTooltipClass,
   dockGlassPanel,
   runningIndicatorClass,
@@ -29,14 +27,12 @@ export function DockFolder({
   apps,
   openApp,
   transform,
-  settling,
 }: {
   label: string;
   icon: ReactNode;
   apps: DockApp[];
   openApp: (id: AppId) => void;
   transform?: DockMagnifyTransform;
-  settling?: boolean;
 }) {
   const scale = transform?.scale ?? 1;
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +75,7 @@ export function DockFolder({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={cn(dockBtnClass, settling && dockSlotSettle)}
+        className={dockBtnClass}
         aria-label={label}
         aria-expanded={isOpen}
         style={{ width: DOCK_ICON_SIZE * scale }}
@@ -87,10 +83,11 @@ export function DockFolder({
         <div
           className={cn(
             dockIconMotion,
-            settling && dockIconSettle,
             anyBounce && "animate-dock-bounce"
           )}
-          style={{ transform: `scale(${scale})` }}
+          style={{
+            transform: `scale(${scale})`,
+          }}
         >
           {icon}
         </div>

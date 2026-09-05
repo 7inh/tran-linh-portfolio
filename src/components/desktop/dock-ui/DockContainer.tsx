@@ -10,10 +10,16 @@ import { GamesGlyph, UtilitiesGlyph } from "@/components/desktop/Dock";
 import { dockGlassPanel } from "./DockConfig";
 import { DockItem } from "./DockItem";
 import { DockFolder } from "./DockFolder";
-import { DOCK_ICON_SIZE, useDockMagnification } from "./useDockMagnification";
+import {
+  DOCK_GAP,
+  DOCK_ICON_SIZE,
+  useDockMagnification,
+  type DockSlot,
+} from "./useDockMagnification";
 
+const ICON_SLOT: DockSlot = { width: DOCK_ICON_SIZE, magnifies: true };
 /** 1px rule plus its mx-1 margins, i.e. the footprint it actually occupies. */
-const SEPARATOR_WIDTH = 9;
+const SEPARATOR_SLOT: DockSlot = { width: 9, magnifies: false };
 
 export function DockContainer() {
   const { windows, focusedId, bouncingId, openApp } = useWindowManager();
@@ -31,13 +37,13 @@ export function DockContainer() {
 
   // Slot order: main apps, separator, Games, Utilities, separator, Trash.
   // Separators occupy a slot so resting centres line up with what's rendered.
-  const slotWidths = [
-    ...mainApps.map(() => DOCK_ICON_SIZE),
-    SEPARATOR_WIDTH,
-    DOCK_ICON_SIZE,
-    DOCK_ICON_SIZE,
-    SEPARATOR_WIDTH,
-    ...(trashApp ? [DOCK_ICON_SIZE] : []),
+  const slots = [
+    ...mainApps.map(() => ICON_SLOT),
+    SEPARATOR_SLOT,
+    ICON_SLOT,
+    ICON_SLOT,
+    SEPARATOR_SLOT,
+    ...(trashApp ? [ICON_SLOT] : []),
   ];
   const gamesIndex = mainApps.length + 1;
   const utilitiesIndex = gamesIndex + 1;
@@ -45,16 +51,22 @@ export function DockContainer() {
 
   // Tracking and release are handled on the window once entered, so the
   // magnified icons drawn above the dock's own box don't count as leaving.
-  const { onMouseEnter, getTransform, settling } =
-    useDockMagnification(slotWidths);
+  const { onMouseEnter, getTransform, offsetX } =
+    useDockMagnification(slots);
 
   return (
     <div
       onMouseEnter={onMouseEnter}
       className={cn(
-        "fixed bottom-2 left-1/2 z-[90] flex -translate-x-1/2 items-end gap-1.5 rounded-[22px] px-2 pb-3.5 pt-2",
+        "fixed bottom-2 left-1/2 z-[90] flex items-end rounded-[22px] px-3 pb-4 pt-3",
         dockGlassPanel
       )}
+      // Replaces the usual -translate-x-1/2 centring: the extra nudge keeps the
+      // growth on the far side of the cursor instead of splitting it evenly.
+      style={{
+        gap: DOCK_GAP,
+        transform: `translateX(calc(-50% + ${offsetX}px))`,
+      }}
     >
       {/* Main apps */}
       {mainApps.map((app, index) => (
@@ -67,7 +79,6 @@ export function DockContainer() {
           isBounce={bouncingId === app.id}
           onClick={() => openApp(app.id as AppId)}
           transform={getTransform(index)}
-          settling={settling}
         />
       ))}
 
@@ -81,7 +92,6 @@ export function DockContainer() {
         apps={gameApps.map((app) => ({ id: app.id as AppId, label: app.label }))}
         openApp={openApp}
         transform={getTransform(gamesIndex)}
-        settling={settling}
       />
 
       {/* Utilities folder */}
@@ -91,7 +101,6 @@ export function DockContainer() {
         apps={utilityApps.map((app) => ({ id: app.id as AppId, label: app.label }))}
         openApp={openApp}
         transform={getTransform(utilitiesIndex)}
-        settling={settling}
       />
 
       {/* Separator */}
@@ -107,7 +116,6 @@ export function DockContainer() {
           isBounce={bouncingId === trashApp.id}
           onClick={() => openApp(trashApp.id as AppId)}
           transform={getTransform(trashIndex)}
-          settling={settling}
         />
       )}
     </div>

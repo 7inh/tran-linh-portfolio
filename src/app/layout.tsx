@@ -22,22 +22,32 @@ export const metadata: Metadata = {
 };
 
 /**
- * Dark is the default theme, so `dark` ships on the server-rendered html.
- * This blocking script only strips it when the visitor has explicitly
- * chosen light before, which avoids a flash of the wrong theme.
+ * `dark` ships on the server-rendered html as a starting guess. This blocking
+ * script corrects it before first paint: an explicit stored choice wins,
+ * otherwise it follows the OS's light/dark setting. Either way it must run
+ * before React hydrates, or the class list would flash then jump.
  */
-const themeScript = `(function(){try{if(localStorage.getItem("portfolio-theme")==="light"){document.documentElement.classList.remove("dark")}}catch(e){}})()`;
+const themeScript = `(function(){try{
+  var stored = localStorage.getItem("portfolio-theme");
+  var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.classList.toggle("dark", dark);
+}catch(e){}})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      // themeScript may strip `dark` before hydration, so the class list
-      // legitimately differs from the server render.
+      // themeScript may add or remove `dark` before hydration, so the class
+      // list legitimately differs from the server render.
       suppressHydrationWarning
       className={`${outfit.variable} ${sourceSans.variable} dark h-full antialiased`}
     >
-      <head>
+      {/* Browser extensions (LocatorJS, and others of that sort) stamp their
+          own attributes onto <head> before React hydrates, which reads as a
+          mismatch against the clean server markup. suppressHydrationWarning
+          only covers the element it is on, so <html> having it does nothing
+          for <head>. */}
+      <head suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-full overflow-hidden font-sans">

@@ -67,7 +67,10 @@ export function ControlCenter({
       role="dialog"
       aria-label="Control Center"
       className={cn(
-        "absolute right-2 top-9 z-[120] w-[min(320px,calc(100vw-1rem))] rounded-2xl border border-glass-border/50 bg-glass/90 p-3 text-foreground shadow-[0_12px_40px_var(--glass-shadow)] backdrop-blur-2xl dark:border-glass-border/10 dark:bg-glass/90",
+        // Sits just under the 24px menu bar (see MenuBar's `h-6`). Background
+        // opacity matches the dock's glass recipe (dock-ui/DockConfig.ts's
+        // dockGlassPanel) rather than --glass/90, which read as a solid card.
+        "absolute right-2 top-7 z-[120] w-[min(320px,calc(100vw-1rem))] rounded-2xl border border-glass-border/50 bg-white/30 p-3 text-foreground shadow-[0_12px_40px_var(--glass-shadow)] backdrop-blur-2xl dark:border-glass-border/10 dark:bg-black/30",
         className
       )}
     >

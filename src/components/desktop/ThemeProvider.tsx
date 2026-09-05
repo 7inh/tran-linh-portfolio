@@ -25,12 +25,17 @@ function applyDomDark(dark: boolean) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  // Dark is the default; layout.tsx already put `dark` on <html>.
+  // Matches layout.tsx's server render (which always ships `dark`), so this
+  // first client render agrees with the SSR markup. The effect below corrects
+  // it a tick later — to a stored choice, or the OS setting — exactly as
+  // layout.tsx's blocking script already did before paint.
   const [dark, setDarkState] = useState(true);
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    const next = stored ? stored === "dark" : true;
+    const next = stored
+      ? stored === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
     setDarkState(next);
     applyDomDark(next);
   }, []);
