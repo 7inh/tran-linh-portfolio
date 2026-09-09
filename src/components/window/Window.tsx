@@ -347,7 +347,7 @@ export function Window({ id, children, titleBar }: WindowProps) {
         };
 
   const showResize =
-    !isMobile && !win.maximized && !win.minimized;
+    !isMobile && !win.maximized && !win.minimized && !win.closing;
 
   return (
     <div
@@ -357,20 +357,33 @@ export function Window({ id, children, titleBar }: WindowProps) {
       className={cn(
         "absolute flex flex-col overflow-hidden border border-glass-border/50 bg-glass/85 shadow-[0_18px_50px_var(--glass-shadow)] backdrop-blur-2xl dark:border-glass-border/10 dark:bg-glass/90",
         isMobile ? "rounded-none border-x-0 border-t-0" : "rounded-xl",
-        "transition-[opacity,transform] duration-200 ease-out",
-        win.minimized
-          ? "pointer-events-none scale-[0.2] opacity-0 origin-bottom"
+        win.closing
+          ? // Closing is quicker and eased-in (accelerating out), mirroring
+            // macOS's default "Scale" window-close effect: a small shrink and
+            // fade toward the traffic lights' corner rather than the dock.
+            // Tailwind v4's scale-* utilities set the standalone CSS `scale`
+            // property, not `transform` — it has to be named explicitly here
+            // or only opacity would actually transition.
+            cn(
+              "pointer-events-none origin-top-left scale-90 opacity-0",
+              "transition-[opacity,scale] duration-[180ms] ease-[cubic-bezier(0.4,0,1,1)]"
+            )
           : cn(
-              "scale-100 opacity-100 animate-window-in",
-              isFocused
-                ? "ring-1 ring-black/5 dark:ring-white/10"
-                : "opacity-95"
+              "transition-[opacity,scale] duration-200 ease-out",
+              win.minimized
+                ? "pointer-events-none scale-[0.2] opacity-0 origin-bottom"
+                : cn(
+                    "scale-100 opacity-100 animate-window-in",
+                    isFocused
+                      ? "ring-1 ring-black/5 dark:ring-white/10"
+                      : "opacity-95"
+                  )
             ),
         (dragging || resizing) && "transition-none"
       )}
       style={style}
       onMouseDown={() => {
-        if (!win.minimized) focusApp(id);
+        if (!win.minimized && !win.closing) focusApp(id);
       }}
     >
       <div
