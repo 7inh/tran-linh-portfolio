@@ -4,16 +4,24 @@ import { useState } from "react";
 import { Globe, Search } from "lucide-react";
 import { useBrowser } from "@/components/apps/browser/BrowserContext";
 
-const bookmarks = [
+type Bookmark = { label: string; href: string; external?: boolean };
+
+// `external` bookmarks point at sites that refuse iframe embedding, so they open in a new tab.
+const bookmarks: Bookmark[] = [
   { label: "Print Photo Service", href: "https://app.noirolab.com/" },
   { label: "Chat Mockup", href: "https://chat-mockup-henna.vercel.app/" },
   {
     label: "Polite Message Rewriter",
     href: "https://polite-message-rewriter.vercel.app/",
   },
-  { label: "Cau Truyen", href: "https://cautruyen.vercel.app/" },
+  { label: "Cau Truyen", href: "https://www.cautruyen.com/" },
   { label: "SubEz", href: "https://subez.vercel.app/" },
-  { label: "Wikipedia", href: "https://en.wikipedia.org/wiki/Next.js" },
+  { label: "So Sanh Nhanh", href: "https://sosanhnhanh.vercel.app/" },
+  {
+    label: "YTDanmaku",
+    href: "https://chromewebstore.google.com/detail/ytdanmaku/pgcgnjpojamphcaelhnipnmidainkcdm?authuser=0&hl=vi",
+    external: true,
+  },
 ];
 
 function StartPage({ onNavigate }: { onNavigate: (target: string) => void }) {
@@ -42,7 +50,11 @@ function StartPage({ onNavigate }: { onNavigate: (target: string) => void }) {
           <button
             key={bookmark.href}
             type="button"
-            onClick={() => onNavigate(bookmark.href)}
+            onClick={() =>
+              bookmark.external
+                ? window.open(bookmark.href, "_blank", "noopener,noreferrer")
+                : onNavigate(bookmark.href)
+            }
             className="flex flex-col items-center gap-1.5 rounded-lg p-1 text-center outline-none transition hover:opacity-80"
           >
             <span className="flex size-11 shrink-0 items-center justify-center rounded-[0.85rem] bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-sm shadow-black/20">
