@@ -14,12 +14,22 @@ const bookmarks: Bookmark[] = [
     label: "Polite Message Rewriter",
     href: "https://polite-message-rewriter.vercel.app/",
   },
-  { label: "Cau Truyen", href: "https://www.cautruyen.com/" },
+  { label: "Cau Truyen", href: "https://www.cautruyen.com/", external: true },
   { label: "SubEz", href: "https://subez.vercel.app/" },
   { label: "So Sanh Nhanh", href: "https://sosanhnhanh.vercel.app/" },
   {
     label: "YTDanmaku",
     href: "https://chromewebstore.google.com/detail/ytdanmaku/pgcgnjpojamphcaelhnipnmidainkcdm?authuser=0&hl=vi",
+    external: true,
+  },
+  {
+    label: "Per-App Volume Mixer",
+    href: "https://apps.apple.com/vn/app/per-app-volume-mixer/id6816558814?mt=12",
+    external: true,
+  },
+  {
+    label: "Vuốt Giữ Xóa – Dọn Ảnh",
+    href: "https://apps.apple.com/vn/app/vu%E1%BB%91t-gi%E1%BB%AF-x%C3%B3a-d%E1%BB%8Dn-%E1%BA%A3nh/id6816484983",
     external: true,
   },
 ];
